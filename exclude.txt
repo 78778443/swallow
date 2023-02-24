@@ -1,0 +1,2 @@
+/mnt/d/mycode/information-gathering/web/app/home/
+/mnt/d/mycode/information-gathering/web/.env
