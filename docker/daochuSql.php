@@ -5,7 +5,7 @@ use think\facade\Db;
 require_once "../web/vendor/autoload.php";
 
 $to_file_name = "swallow.sql"; //导出文件名
-$gitPath = "/mnt/d/mycode/information-gathering/web/swallow.sql"; //导出文件名
+$gitPath = "/mnt/d/mycode/demos/swallow/web/swallow.sql"; //导出文件名
 file_put_contents($to_file_name, "CREATE DATABASE swallow;\r\nUSE swallow;\r\n\r\n");
 
 
@@ -21,9 +21,9 @@ Db::setConfig([
             // 主机地址
             'hostname' => '124.70.51.244',
             'port' => '3306',
-            'password' => 'PWWsswFh4RHepW5w',
+            'password' => 'f00ba668e1f6b7cd',
             // 用户名
-            'username' => 'swallow',
+            'username' => 'root',
             // 数据库名
             'database' => 'swallow',
             // 数据库编码默认采用utf8

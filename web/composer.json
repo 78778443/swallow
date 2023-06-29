@@ -27,7 +27,9 @@
     "topthink/think-multi-app": "^1.0",
     "topthink/think-view": "^1.0",
     "ext-curl": "*",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-libxml": "*",
+    "ext-simplexml": "*"
   },
   "require-dev": {
     "symfony/var-dumper": "^4.2",

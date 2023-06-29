@@ -1,8 +1,8 @@
 php ./daochuSql.php
 
-#docker build -t daxia/dolphin:latest .
-#docker push daxia/dolphin:latest
+docker build -t daxia/swallow:latest .
+docker push daxia/swallow:latest
 
-docker build -f DockerfileMysql -t daxia/dolphin:mysql57 .
-docker push daxia/dolphin:mysql57
+docker build -f DockerfileMysql -t daxia/swallow:mysql57 .
+docker push daxia/swallow:mysql57
 

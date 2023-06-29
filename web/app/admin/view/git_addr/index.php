@@ -22,8 +22,11 @@
                     <h4>{$totalNum}</h4>
                 </div>
 
-                <div class="col-8">
-
+                <div class="col-6"></div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">添加
+                    </button>
                 </div>
             </div>
         </div>
@@ -36,6 +39,10 @@
                     <tr>
                         <th scope="col" style="color: #aaa;">ID</th>
                         <th scope="col" style="color: #aaa;">仓库地址</th>
+                        <th scope="col" style="color: #aaa;">缺陷</th>
+                        <th scope="col" style="color: #aaa;">危险</th>
+                        <th scope="col" style="color: #aaa;">可疑</th>
+                        <th scope="col" style="color: #aaa;">CVE</th>
                         <th scope="col" style="color: #aaa;">创建时间</th>
                         <th scope="col" style="color: #aaa;">操作</th>
                     </tr>
@@ -44,10 +51,16 @@
                     <?php foreach ($mainList as $item) { ?>
                         <tr>
                             <td>{$item['id']}</td>
-                            <td>{$item['git_addr']}</td>
+                            <td><a href="{$item['git_addr']}" title="{$item['git_addr']}" target="_blank">{:parse_url($item['git_addr'],PHP_URL_PATH)}</a></td>
+
+                            <td>{$item['fortify']}</td>
+                            <td>{$item['semgrep']}</td>
+                            <td>{$item['webshell']}</td>
+                            <td>{$item['mofei']}</td>
                             <td>{$item['create_time']}</td>
                             <td>
-                                <a class="btn btn-sm btn-light"  target="_blank" >查看</a>
+<!--                                <a class="btn btn-sm btn-light" target="_blank">查看</a>-->
+                                <a href="{:URL('git_addr/_del',['id'=>$item['id']])}" class="btn btn-sm btn-secondary" target="_blank">删除</a>
                             </td>
                         </tr>
                     <?php } ?>
@@ -63,5 +76,23 @@
     </div>
 </div>
 
-</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
+            <div class="modal-body">
+                <form action="{:URL('git_addr/_add')}" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">输入仓库地址</label>
+                        <textarea class="form-control" name="git_addr"
+                                  placeholder="https://gitee.com/songboy/QingScan.git  https://gitee.com/songboy/QingScan.git"
+                                  rows="3"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">添加</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -20,14 +20,14 @@ function publishDocker()
 
 function publishGit()
 {
-    $cmd = "rsync -avz  --delete --exclude-from '/mnt/d/mycode/information-gathering/exclude.txt'  /mnt/d/mycode/information-gathering/web/*  /mnt/d/mycode/dolphin/";
+    $cmd = "rsync -avz  --delete --exclude-from '/mnt/d/mycode/demos/swallow/exclude.txt'  /mnt/d/mycode/demos/swallow/web/*  /mnt/d/mycode/demos/swallow/publish/";
     exec($cmd);
     print_r($cmd.PHP_EOL);
 
-    $cmd = "cp  /mnt/d/mycode/information-gathering/web/.example.env  /mnt/d/mycode/dolphin/.example.env";
+    $cmd = "cp  /mnt/d/mycode/demos/swallow/web/.example.env  /mnt/d/mycode/demos/swallow/publish/.example.env";
     exec($cmd);
 
-    $cmd = "cd /mnt/d/mycode/dolphin && git add . && git commit . -m 'update' && git push";
+    $cmd = "cd /mnt/d/mycode/demos/swallow/publish && git add . && git commit . -m 'update' && git push";
     exec($cmd.PHP_EOL);
     print_r($cmd);
 
