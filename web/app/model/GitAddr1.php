@@ -6,7 +6,7 @@ use think\facade\Db;
 use think\Model;
 
 
-class Gitaddr extends Model
+class GitAddr1 extends Model
 {
 
     public static function start()

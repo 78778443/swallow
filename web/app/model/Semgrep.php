@@ -40,7 +40,7 @@ class Semgrep extends Model
     {
         $codePath = $info['code_path'];
         if (file_exists($codePath) == false) {
-            gitAddr::execTool($info);
+            GitAddr1::execTool($info);
             echo "代码目录不存在:{$codePath} , 即将自动下载... \n";
         }
         $hash = md5($codePath);
