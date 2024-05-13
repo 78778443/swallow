@@ -41,12 +41,11 @@ $info['extra']['is_ignored'] = json_decode($info['extra']['is_ignored'], true);
                                 echo '</td></tr></table>';
                             } else {
                                 $key = htmlspecialchars($key);
+                                $val = empty($val) ? '' : $val;
                                 $val = htmlspecialchars($val);
                                 if ($key == 'lines') $val = '<textarea class="form-control" rows="3" disabled style="padding-left:0;border: none;background-color:#fafafa;">' . $val . '</textarea>';
                                 echo "<tr><td style='color:#ccc;font-weight:bold;max-width:120px;'>" . $key . "</td><td>" . $val . "</td></tr>";
-
                             }
-
                         }
                         echo '</table>';
                     } else {
@@ -62,7 +61,8 @@ $info['extra']['is_ignored'] = json_decode($info['extra']['is_ignored'], true);
 
     <div class="col-11 tuchu" style="border-radius: 5px;padding: 20px;text-align:center;">
         <?php if ($preId) { ?>
-            <a class="btn btn-outline-primary" href="{:url('semgrep/detail',['id'=>$preId])}">上一个</a>&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-outline-primary"
+               href="{:url('semgrep/detail',['id'=>$preId])}">上一个</a>&nbsp;&nbsp;&nbsp;
         <?php } ?>
         <?php if ($nextId) { ?>
             <a class="btn btn-outline-info" href="{:url('semgrep/detail',['id'=>$nextId])}">下一个</a>&nbsp;&nbsp;&nbsp;

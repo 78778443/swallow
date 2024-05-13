@@ -15,7 +15,9 @@ class Semgrep extends Model
         $obj->autoDownTool();
         //读取上游数据
         $where = [];
-        $list = Db::table('git_addr')->whereNotNull('code_path')->where($where)->select()->toArray();
+        $list = Db::table('git_addr')->whereNotNull('code_path')->where($where)
+            ->whereTime('semgrep_scan_time', '<=', date('Y-m-d', time() - (7 * 86400)))
+            ->select()->toArray();
 
 
         //处理数据
@@ -37,6 +39,10 @@ class Semgrep extends Model
     function execTool(array $info)
     {
         $codePath = $info['code_path'];
+        if (file_exists($codePath) == false) {
+            gitAddr::execTool($info);
+            echo "代码目录不存在:{$codePath} , 即将自动下载... \n";
+        }
         $hash = md5($codePath);
         $outFile = "/tmp/{$hash}.json";
         if (!file_exists($outFile)) {

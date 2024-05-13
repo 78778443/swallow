@@ -37,7 +37,7 @@
 
         <div class="row" style="margin-bottom: 20px;">
             <?php foreach ($otherList as $item) { ?>
-                <div class="col-3">
+                <div class="col-4">
                     <div style="height: 300px;border-radius: 10px;margin-bottom: 20px;padding:10px; border: 1px solid #eee; ">
                         <p class="home_title" >{$item['title']}</p>
                         <div style="height:220px; overflow:auto;overflow-y:scroll; overflow-y:hidden; ">

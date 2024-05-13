@@ -23,11 +23,11 @@
                 </div>
 
                 <div class="col-6"></div>
-                <div class="col-2">
-                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">添加
-                    </button>
-                </div>
+<!--                <div class="col-2">-->
+<!--                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"-->
+<!--                            data-bs-target="#exampleModal">添加-->
+<!--                    </button>-->
+<!--                </div>-->
             </div>
         </div>
         <div style="height:20px;"></div>
@@ -39,10 +39,10 @@
                     <tr>
                         <th scope="col" style="color: #aaa;">ID</th>
                         <th scope="col" style="color: #aaa;">仓库地址</th>
+                        <th scope="col" style="color: #aaa;">所属项目</th>
                         <th scope="col" style="color: #aaa;">缺陷</th>
                         <th scope="col" style="color: #aaa;">危险</th>
-                        <th scope="col" style="color: #aaa;">可疑</th>
-                        <th scope="col" style="color: #aaa;">CVE</th>
+                        <th scope="col" style="color: #aaa;">WebShell</th>
                         <th scope="col" style="color: #aaa;">创建时间</th>
                         <th scope="col" style="color: #aaa;">操作</th>
                     </tr>
@@ -51,16 +51,18 @@
                     <?php foreach ($mainList as $item) { ?>
                         <tr>
                             <td>{$item['id']}</td>
-                            <td><a href="{$item['git_addr']}" title="{$item['git_addr']}" target="_blank">{:parse_url($item['git_addr'],PHP_URL_PATH)}</a></td>
-
+                            <td><a href="{$item['git_addr']}" title="{$item['git_addr']}" target="_blank">{:parse_url($item['git_addr'],PHP_URL_PATH)}</a>
+                            </td>
+                            <td>{$item['project_id']}</td>
                             <td>{$item['fortify']}</td>
                             <td>{$item['semgrep']}</td>
                             <td>{$item['webshell']}</td>
-                            <td>{$item['mofei']}</td>
                             <td>{$item['create_time']}</td>
                             <td>
-<!--                                <a class="btn btn-sm btn-light" target="_blank">查看</a>-->
-                                <a href="{:URL('git_addr/_del',['id'=>$item['id']])}" class="btn btn-sm btn-secondary" target="_blank">删除</a>
+                                <a href="{:URL('_scan',['id'=>$item['id']])}" class="btn btn-sm btn-light" target="_blank">扫描</a>
+                                <a href="{:URL('detail',['id'=>$item['id']])}" class="btn btn-sm btn-outline-info" target="_blank">详情</a>
+                                <a href="{:URL('git_addr/_del',['id'=>$item['id']])}" class="btn btn-sm btn-secondary"
+                                   target="_blank">删除</a>
                             </td>
                         </tr>
                     <?php } ?>

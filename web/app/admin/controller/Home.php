@@ -21,16 +21,27 @@ class Home extends Common
         $bugList = array_column($bugList, 'num','Category');
         arsort($bugList);
 
-        $compList = Db::table('mf_vulns')->field('git_addr,count(git_addr) as num')->group('git_addr')->select()->toArray();
-        $compList = array_column($compList, 'num','git_addr');
-        arsort($compList);
+        $semgrepList = Db::table('semgrep')->field('check_id,count(check_id) as num')->group('check_id')->select()->toArray();
+        foreach ($semgrepList as &$item){
+            $tempArr =explode(".",$item['check_id']);
+
+
+            $item['check_id'] = array_pop($tempArr).".".array_pop($tempArr);
+
+        }
+        $semgrepList = array_column($semgrepList, 'num','check_id');
+
+        arsort($semgrepList);
+
+        $hemaList = Db::table('hema')->field('type,count(type) as num')->group('type')->select()->toArray();
+        $hemaList = array_column($hemaList, 'num','type');
+        arsort($hemaList);
 
 
         $otherList = [
             ['title' => '风险类型', 'lists' =>$bugList],
-            ['title' => '组件供应', 'lists' => []],
-            ['title' => '项目风险', 'lists' => $compList],
-            ['title' => '危险函数', 'lists' => []],
+            ['title' => '风险函数', 'lists' => $semgrepList],
+            ['title' => 'WebShell', 'lists' => $hemaList],
         ];
 
         $data = ['otherList' => $otherList];

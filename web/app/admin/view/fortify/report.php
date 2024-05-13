@@ -30,34 +30,24 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <a type="button"
-                       class="btn btn-outline-primary <?php echo isset($param['is_repair']) ? '' : 'active' ?> "
-                       href="<?php echo str_replace('is_repair=', '', $_SERVER['REQUEST_URI']) ?>">全部</a>
-                    <a type="button"
-                       class="btn btn-outline-primary  <?php echo isset($param['is_repair']) && $param['is_repair'] == 0 ? 'active' : '' ?>"
-                       href="{$_SERVER['REQUEST_URI']}&is_repair=0">未修复</a>
-                    <a type="button"
-                       class="btn btn-outline-primary  <?php echo isset($param['is_repair']) && $param['is_repair'] ? 'active' : '' ?>"
-                       href="{$_SERVER['REQUEST_URI']}&is_repair=1">已修复</a>
-                </div>
+
                 &nbsp;
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                     <a type="button"
                        class="btn btn-outline-primary  <?php echo isset($param['Folder']) ? '' : 'active' ?> "
-                       href="<?php echo str_replace('Folder=', '', $_SERVER['REQUEST_URI']) ?>">全部</a>
+                       href="{:URL('report')}">全部</a>
                     <a type="button"
                        class="btn btn-outline-primary <?php echo isset($param['Folder']) && $param['Folder'] == 'Critical' ? 'active' : '' ?>"
-                       href="{$_SERVER['REQUEST_URI']}&Folder=Critical">严重</a>
+                       href="{:URL('report',['Folder'=>'Critical'])}">严重</a>
                     <a type="button"
                        class="btn btn-outline-primary <?php echo isset($param['Folder']) && $param['Folder'] == 'High' ? 'active' : '' ?>"
-                       href="{$_SERVER['REQUEST_URI']}&Folder=High">高危</a>
+                       href="{:URL('report',['Folder'=>'High'])}">高危</a>
                     <a type="button"
                        class="btn btn-outline-primary <?php echo isset($param['Folder']) && $param['Folder'] == 'Medium' ? 'active' : '' ?>"
-                       href="{$_SERVER['REQUEST_URI']}&Folder=Medium">中危</a>
+                       href="{:URL('report',['Folder'=>'Medium'])}">中危</a>
                     <a type="button"
                        class="btn btn-outline-primary <?php echo isset($param['Folder']) && $param['Folder'] == 'Low' ? 'active' : '' ?>"
-                       href="{$_SERVER['REQUEST_URI']}&Folder=Low">低危</a>
+                       href="{:URL('report',['Folder'=>'Low'])}">低危</a>
                 </div>
 
 

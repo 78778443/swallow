@@ -14,6 +14,25 @@ use think\Request;
 
 class Project extends Common
 {
+
+    public function index(Request $request)
+    {
+
+        $where = [];
+        $totalNum= Db::name('project')->where($where)->count();
+        $list = Db::name('project')->where($where)->paginate([
+            'list_rows' => 10,
+            'var_page' => 'page',
+        ]);
+        $mainList = $list->items();
+        $page = $list->render();
+
+        $data = ['mainList' => $mainList, 'totalNum' => $totalNum, 'page' => $page];
+
+        return View::fetch('index', $data);
+    }
+
+
     public function setting(Request $request)
     {
 
@@ -78,4 +97,32 @@ class Project extends Common
         return redirect((string)url("project/setting", $retUrl));
     }
 
+    public function _del($id)
+    {
+        Db::table('project')->delete($id);
+
+        return redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    public function _add(Request $request)
+    {
+        $gitAddr = $request->param('name');
+        $desc = $request->param('desc');
+
+        $data = ['name'=>$gitAddr,'desc'=>$desc];
+        $projectId = Db::table('project')->strict(false)->extra('IGNORE')->insertGetId($data);
+
+
+        $data = ['project_id'=>$projectId];
+        $gitAddr = $request->param('git_addr');
+        $gitAddrArr = explode("\n", $gitAddr);
+
+        foreach ($gitAddrArr as $url) {
+            $data['git_addr'] = trim($url);
+            Db::table('git_addr')->strict(false)->extra('IGNORE')->insert($data);
+        }
+
+        return redirect($_SERVER['HTTP_REFERER']);
+
+    }
 }

@@ -14,13 +14,13 @@
     }
 
     .nav_li_hover {
-        color: #0d6efd;
+        color: #543ab4;
         background-color: #eee;
     }
 
     .nav_li li:hover {
         background-color: #eee;
-        color: #0d6efd;
+        color: #543ab4;
     }
 
 </style>

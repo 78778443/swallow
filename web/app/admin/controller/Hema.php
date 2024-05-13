@@ -11,18 +11,21 @@ use think\Request;
 
 class Hema extends Common
 {
-    public function index()
+    public function index(Request $request)
     {
-        $countList = HemaModel::getDetailCount();
+        $project_id = $request->param('project_id', 0);
+        $where = empty($project_id) ? [] : ['project_id' => $project_id];
+        $countList = HemaModel::getDetailCount($where);
 
-        $where = ['project_id' => 1];
         $list = Db::name('hema')->where($where)->paginate([
             'list_rows' => 10,
             'var_page' => 'page',
+            'query' => $request->param(),
         ]);
 
 
         $bugList['list'] = $list->items();
+
         $page = $list->render();
         foreach ($bugList['list'] as &$item) {
             $item['tags'] = [];

@@ -31,34 +31,20 @@
         <div class="row">
             <div class="col-12">
 
-                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="btnradio1" id="btnradio1" autocomplete="off" checked>
-                    <label class="btn btn-outline-primary" for="btnradio1">全部</label>
-                    <input type="radio" class="btn-check" name="btnradio1" id="btnradio1" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio1">未修复</label>
-
-                    <input type="radio" class="btn-check" name="btnradio1" id="btnradio2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">已修复</label>
+                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                    <a type="button"
+                       class="btn btn-outline-primary  <?php echo isset($param['extra']) ? '' : 'active' ?> "
+                       href="{:URL('index')}">全部</a>
+                    <a type="button"
+                       class="btn btn-outline-primary <?php echo isset($param['extra']) && $param['extra'] == 'HIGHT' ? 'active' : '' ?>"
+                       href="{:URL('index',['extra'=>'HIGHT'])}">高危</a>
+                    <a type="button"
+                       class="btn btn-outline-primary <?php echo isset($param['extra']) && $param['extra'] == 'MEDIUM' ? 'active' : '' ?>"
+                       href="{:URL('index',['extra'=>'MEDIUM'])}">中危</a>
+                    <a type="button"
+                       class="btn btn-outline-primary <?php echo isset($param['extra']) && $param['extra'] == 'LOW' ? 'active' : '' ?>"
+                       href="{:URL('index',['extra'=>'LOW'])}">低危</a>
                 </div>
-                &nbsp;
-                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio1" autocomplete="off" checked>
-                    <label class="btn btn-outline-primary" for="btnradio1">全部</label>
-                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio1" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio1">严重</label>
-                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">高危</label>
-                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">中危</label>
-                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">低危</label>
-                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">提示</label>
-                    &nbsp;
-                    <input type="text" style="width:200px;" class="form-control" placeholder="按信息进行查询">
-                </div>
-
-
             </div>
         </div>
         <div class="row">

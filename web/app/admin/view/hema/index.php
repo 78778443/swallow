@@ -31,29 +31,9 @@
         <div class="row">
             <div class="col-12">
 
-                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="btnradio1" id="btnradio1" autocomplete="off" checked>
-                    <label class="btn btn-outline-primary" for="btnradio1">全部</label>
-                    <input type="radio" class="btn-check" name="btnradio1" id="btnradio1" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio1">未修复</label>
 
-                    <input type="radio" class="btn-check" name="btnradio1" id="btnradio2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">已修复</label>
-                </div>
                 &nbsp;
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio1" autocomplete="off" checked>
-                    <label class="btn btn-outline-primary" for="btnradio1">全部</label>
-                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio1" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio1">严重</label>
-                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">高危</label>
-                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">中危</label>
-                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">低危</label>
-                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio2" autocomplete="off">
-                    <label class="btn btn-outline-primary" for="btnradio2">提示</label>
                     &nbsp;
                     <input type="text" style="width:200px;" class="form-control" placeholder="按信息进行查询">
                 </div>
@@ -70,6 +50,7 @@
                             <th style="color:#aaa;">id</th>
                             <th style="color:#aaa;">漏洞类型</th>
                             <th style="color:#aaa;">文件名</th>
+                            <th style="color:#aaa;">所属项目</th>
                             <th style="color:#aaa;">所属仓库</th>
                             <th style="color:#aaa;">发现时间</th>
                             <th style="color:#aaa;">是否漏洞</th>
@@ -81,6 +62,7 @@
                                 <td>{$item['id']}</td>
                                 <td>{$item['type']}</td>
                                 <td><span title="{$item['filename']}">{:basename($item['filename'])}</span></td>
+                                <td>{$item['project_id']}</td>
                                 <td><a href="{$item['git_addr']}" title="{$item['git_addr']}" target="_blank">{:parse_url($item['git_addr'],PHP_URL_PATH)}</a></td>
                                 <td>{$item['create_time']}</td>
                                 <td>{$item['is_repair']}</td>

@@ -13,7 +13,7 @@ class FortifyModel extends Model
     public static function getCount(string $domain, int $projectId)
     {
         $data = [];
-        $where = [ ['project_id', '=', $projectId]];
+        $where = [['project_id', '=', $projectId]];
 
         $data['全部'] = Db::table('fortify')->where($where)->count();
         $data['严重'] = Db::table('fortify')->where($where)->where(['Folder' => 'Critical'])->cache(60)->count();
@@ -24,10 +24,10 @@ class FortifyModel extends Model
         return $data;
     }
 
-    public static function getDetailCount()
+    public static function getDetailCount($project_id = 1)
     {
 
-        $where = ['project_id' => 1];
+        $where = $project_id ? ['project_id' => $project_id] : [];
 
         //修复率
         $repairNum = Db::table('fortify')->where($where)->where(['is_repair' => 1])->count();
@@ -43,16 +43,16 @@ class FortifyModel extends Model
 
         $countList = [
             ['name' => '漏洞总数(个)',
-                'num' => Db::table('fortify')->where(['project_id' => 1])->count(),
+                'num' => Db::table('fortify')->where($where)->count(),
                 'lists' => [
                     '今日新增' => Db::table('fortify')->where($where)->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->count(),
                     '本周新增' => Db::table('fortify')->where($where)->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->count(),
                 ]
             ],
-            ['name' => '受影响仓库(个)', 'num' => Db::table('fortify')->where(['project_id' => 1])->group('git_addr')->count(),
+            ['name' => '受影响仓库(个)', 'num' => Db::table('fortify')->where($where)->group('git_addr')->count(),
                 'lists' => [
-                    '总数 ' => Db::table('fortify')->where(['project_id' => 1])->group('git_addr')->count(),
-                    '7天新增 ' => Db::table('fortify')->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->where(['project_id' => 1])->group('git_addr')->count()
+                    '总数 ' => Db::table('fortify')->where($where)->group('git_addr')->count(),
+                    '7天新增 ' => Db::table('fortify')->where($where)->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->group('git_addr')->count()
                 ]
             ],
             ['name' => '修复率', 'num' => $repairCount, 'lists' => ['待修复' => $unRepairNum, '已修复' => $repairNum]],

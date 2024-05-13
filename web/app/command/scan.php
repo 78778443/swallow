@@ -4,6 +4,7 @@ declare (strict_types = 1);
 namespace app\command;
 
 use app\model\Fortify;
+use app\model\Hema;
 use app\model\SemGrep;
 use app\model\GitAddr;
 use think\console\Command;
@@ -32,6 +33,8 @@ class scan extends Command
             Semgrep::start();
         }elseif ($action == 'fortify') {
             Fortify::start();
+        }elseif ($action == 'hema') {
+            Hema::start();
         }
         // 指令输出
         $output->writeln('app\command\scan');

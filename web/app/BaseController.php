@@ -53,6 +53,7 @@ abstract class BaseController
 
         // 控制器初始化
         $this->initialize();
+
     }
 
     // 初始化

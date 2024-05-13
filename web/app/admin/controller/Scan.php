@@ -12,16 +12,17 @@ class Scan extends Common
 {
     public function report(Request $request)
     {
+        $project_id = $request->param('project_id', 0);
+        $where = empty($project_id) ? [] : ['project_id' => $project_id];
+        $countList = FortifyModel::getDetailCount($project_id);
 
-        $countList = FortifyModel::getDetailCount();
-
-        $where = ['project_id' => 1];
 
         if ($request->param('is_repair') !== null) $where['is_repair'] = $request->param('is_repair');
         if ($request->param('Folder') !== null) $where['Folder'] = $request->param('Folder');
         $list = Db::name('fortify')->where($where)->paginate([
             'list_rows' => 10,
             'var_page' => 'page',
+            'query' => $request->param(),
         ]);
         $bugList['list'] = $list->items();
         $page = $list->render();

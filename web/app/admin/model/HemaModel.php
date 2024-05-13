@@ -24,10 +24,8 @@ class HemaModel extends Model
         return $data;
     }
 
-    public static function getDetailCount()
+    public static function getDetailCount($where)
     {
-
-        $where = ['project_id' => 1];
 
         //修复率
         $repairNum = Db::table('hema')->where($where)->where(['is_repair' => 1])->count();
@@ -37,16 +35,16 @@ class HemaModel extends Model
 
         $countList = [
             ['name' => '漏洞总数(个)',
-                'num' => Db::table('hema')->where(['project_id' => 1])->count(),
+                'num' => Db::table('hema')->where($where)->count(),
                 'lists' => [
                     '今日新增' => Db::table('hema')->where($where)->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->count(),
                     '本周新增' => Db::table('hema')->where($where)->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->count(),
                 ]
             ],
-            ['name' => '受影响仓库(个)', 'num' => Db::table('hema')->where(['project_id' => 1])->group('git_addr')->count(),
+            ['name' => '受影响仓库(个)', 'num' => Db::table('hema')->where($where)->group('git_addr')->count(),
                 'lists' => [
-                    '总数 ' => Db::table('hema')->where(['project_id' => 1])->group('git_addr')->count(),
-                    '7天新增 ' => Db::table('hema')->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->where(['project_id' => 1])->group('git_addr')->count()
+                    '总数 ' => Db::table('hema')->where($where)->group('git_addr')->count(),
+                    '7天新增 ' => Db::table('hema')->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->where($where)->group('git_addr')->count()
                 ]
             ],
             ['name' => '修复率', 'num' => $repairCount, 'lists' => ['待修复' => $unRepairNum, '已修复' => $repairNum]],

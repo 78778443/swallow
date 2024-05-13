@@ -10,14 +10,19 @@ use think\Request;
 
 class Semgrep extends Common
 {
-    public function index()
+    public function index(Request $request)
     {
-        $countList = SemgrepModel::getDetailCount();
+        $project_id = $request->param('project_id', 0);
+        $where = empty($project_id) ? [] : ['project_id' => $project_id];
+        $countList = SemgrepModel::getDetailCount($where);
 
-        $where = ['project_id' => 1];
-        $list = Db::name('semgrep')->where($where)->paginate([
+        $where2 = [];
+        if ($request->param('extra') !== null) $where2[]  = ['extra','like',"%{$request->param('extra')}%"];
+
+        $list = Db::name('semgrep')->where($where)->where($where2)->paginate([
             'list_rows' => 10,
             'var_page' => 'page',
+            'query' => $request->param(),
         ]);
         $bugList['list'] = $list->items();
         $page = $list->render();
