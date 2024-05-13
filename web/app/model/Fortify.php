@@ -47,7 +47,7 @@ class Fortify extends Model
         }
 
         if (file_exists($codePath) == false) {
-            GitAddr1::execTool($codeInfo);
+            GitAddr::execTool($codeInfo);
             echo "代码目录不存在:{$codePath} , 即将自动下载... \n";
         }
 

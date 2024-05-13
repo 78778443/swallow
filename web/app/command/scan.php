@@ -6,7 +6,7 @@ namespace app\command;
 use app\model\Fortify;
 use app\model\Hema;
 use app\model\SemGrep;
-use app\model\GitAddr1;
+use app\model\GitAddr;
 use think\console\Command;
 use think\console\Input;
 use think\console\input\Argument;
@@ -28,7 +28,7 @@ class scan extends Command
 
         $action = trim($input->getArgument('action'));
         if ($action == 'git') {
-            GitAddr1::start();
+            GitAddr::start();
         }elseif ($action == 'semgrep') {
             Semgrep::start();
         }elseif ($action == 'fortify') {
