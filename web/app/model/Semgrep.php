@@ -6,12 +6,12 @@ use think\facade\Db;
 use think\Model;
 
 
-class Semgrep1 extends Model
+class Semgrep extends Model
 {
 
     public static function start()
     {
-        $obj = new Semgrep1();
+        $obj = new Semgrep();
         $obj->autoDownTool();
         //读取上游数据
         $where = [];
