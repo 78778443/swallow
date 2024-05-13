@@ -1,2 +1,1 @@
-/mnt/d/mycode/information-gathering/web/app/home/
-/mnt/d/mycode/information-gathering/web/.env
+/mnt/d/mycode/demos/swallow/web/.env
