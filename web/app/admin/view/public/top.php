@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title><?php echo $title ?? 'Swallow 代码审计系统' ?></title>
+    <title><?php echo $title ?? '代码审计系统' ?></title>
     <link rel="shortcut icon" href="/static/images/logo_blue.png" type="image/x-icon"/>
     <script crossorigin="anonymous" src="https://lib.baomitu.com/jquery/2.2.4/jquery.min.js"></script>
     <link crossorigin="anonymous" href="https://lib.baomitu.com/twitter-bootstrap/5.2.3/css/bootstrap.min.css"
