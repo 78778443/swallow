@@ -40,10 +40,10 @@ class Semgrep extends Common
     public function detail(Request $request)
     {
         $id = $request->param('id');
-        $where = ['project_id' => 1, 'id' => $id];
+        $where = [  'id' => $id];
         $info = Db::table('semgrep')->where($where)->find();
 
-        $where = ['project_id' => 1];
+        $where = ['project_id' => $info['project_id']];
         $preId = Db::table('semgrep')->where($where)->where('id', '<', $id)->value('id');
         $nextId = Db::table('semgrep')->where($where)->where('id', '>', $id)->value('id');
 

@@ -9,7 +9,6 @@
     }
 </style>
 <?php
-
 $info['extra'] = json_decode($info['extra'], true);
 $info['extra']['is_ignored'] = json_decode($info['extra']['is_ignored'], true);
 ?>
