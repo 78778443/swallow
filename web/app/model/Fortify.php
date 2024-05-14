@@ -81,14 +81,15 @@ class Fortify extends Model
             return [];
         }
 
-        return $this->getFortifData($xmlFile, $codeInfo['git_addr']);
+        return $this->getFortifData($xmlFile, $codeInfo);
 
     }
 
 
-    function getFortifData($xmlPath, $git_addr)
+    function getFortifData($xmlPath,$gitInfo)
     {
 
+        $git_addr = $gitInfo['git_addr'];
         $str = file_get_contents($xmlPath);
 
         $obj = simplexml_load_string($str, "SimpleXMLElement", LIBXML_NOCDATA);
@@ -114,6 +115,7 @@ class Fortify extends Model
                 }
                 $val['hash'] = md5($val['Primary']);
                 $val['git_addr'] = $git_addr;
+                $val['project_id'] = $gitInfo['project_id'];
                 $data[] = $val;
             }
         }

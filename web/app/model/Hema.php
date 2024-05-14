@@ -31,7 +31,7 @@ class Hema extends Model
             self::execTool($toolPath, $codePath);
 
             //录入检测结果
-            $tempList = self::writeData($codePath, $toolPath,$value['git_addr']);
+            $tempList = self::writeData($codePath, $toolPath, $value);
 
             //开始执行
             $data = array_merge($data, $tempList);
@@ -58,9 +58,9 @@ class Hema extends Model
 
     }
 
-    public static function writeData($codePath, string $toolPath,$gitAddr)
+    public static function writeData($codePath, string $toolPath, $gitInfo)
     {
-
+        $gitAddr = $gitInfo['git_addr'];
         $outPath = "{$toolPath}/result.csv";
         if (!file_exists($outPath)) {
             print_r("没有找到结果文件:{$outPath}\n");
@@ -75,6 +75,7 @@ class Hema extends Model
                 'type' => $val[1],
                 'filename' => $val[2],
                 'git_addr' => $gitAddr,
+                'project_id' => $gitInfo['project_id']
             ];
             $data[] = $oneData;
         }

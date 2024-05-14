@@ -61,7 +61,8 @@ class Semgrep extends Model
         $list = $temp['results'] ?? [];
 
         foreach ($list as &$item) {
-            $item['git_addr']  = $info['git_addr'];
+            $item['git_addr'] = $info['git_addr'];
+            $item['project_id'] = $info['project_id'];
             foreach ($list[0] as $key => $tmp) {
                 if (!is_string($item[$key])) $item[$key] = json_encode($item[$key], 256);
             }

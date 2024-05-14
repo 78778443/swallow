@@ -44,10 +44,10 @@ class Scan extends Common
     public function detail(Request $request)
     {
         $id = $request->param('id');
-        $where = ['project_id' => 1, 'id' => $id];
+        $where = [ 'id' => $id];
         $info = Db::table('fortify')->where($where)->find();
 
-        $where = ['project_id' => 1];
+        $where = ['project_id' => $info['project_id'],'git_addr'=>$info['git_addr']];
         $preId = Db::table('fortify')->where($where)->where('id', '<', $id)->value('id');
         $nextId = Db::table('fortify')->where($where)->where('id', '>', $id)->value('id');
 
