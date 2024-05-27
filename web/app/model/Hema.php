@@ -50,7 +50,8 @@ class Hema extends Model
 
     public static function execTool(string $toolPath, string $codePath)
     {
-
+        $toolPath = rtrim($toolPath,"/");
+        exec("rm -rf {$toolPath}/result.csv");
         $cmd = "cd {$toolPath} && ./hm scan {$codePath}";
         echo $cmd . PHP_EOL;
         exec($cmd);
