@@ -61,6 +61,7 @@ class Hema extends Model
 
     public static function writeData($codePath, string $toolPath, $gitInfo)
     {
+        $toolPath = rtrim($toolPath,'/');
         $gitAddr = $gitInfo['git_addr'];
         $outPath = "{$toolPath}/result.csv";
         if (!file_exists($outPath)) {
