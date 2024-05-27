@@ -43,7 +43,7 @@ class Semgrep extends Model
             GitAddr::execTool($info);
             echo "代码目录不存在:{$codePath} , 即将自动下载... \n";
         }
-        $hash = md5($codePath);
+        $hash = md5($codePath).date('YmdHi');
         $outFile = "/tmp/{$hash}.json";
         if (!file_exists($outFile)) {
             print_r("开始扫描|{$codePath}|{$outFile}");
