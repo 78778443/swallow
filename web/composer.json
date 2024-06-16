@@ -7,16 +7,11 @@
     "thinkphp",
     "ORM"
   ],
-  "homepage": "https://www.thinkphp.cn/",
   "license": "Apache-2.0",
   "authors": [
     {
-      "name": "liu21st",
-      "email": "liu21st@gmail.com"
-    },
-    {
-      "name": "yunwuxin",
-      "email": "448901948@qq.com"
+      "name": "汤青松",
+      "email": "78778443@qq.com"
     }
   ],
   "require": {
@@ -26,6 +21,7 @@
     "topthink/think-filesystem": "^1.0",
     "topthink/think-multi-app": "^1.0",
     "topthink/think-view": "^1.0",
+    "guzzlehttp/guzzle": "^7.4",
     "ext-curl": "*",
     "ext-json": "*",
     "ext-libxml": "*",

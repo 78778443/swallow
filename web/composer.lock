@@ -4,8 +4,318 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "93e51e7de3ba8e57cded26c9c1b8fef8",
+    "content-hash": "65189d7a3f145c4c894903231a49d74a",
     "packages": [
+        {
+            "name": "guzzlehttp/guzzle",
+            "version": "7.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/guzzle.git",
+                "reference": "41042bc7ab002487b876a0683fc8dce04ddce104"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/guzzlehttp/guzzle/7.8.1/guzzlehttp-guzzle-7.8.1.zip",
+                "reference": "41042bc7ab002487b876a0683fc8dce04ddce104",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/promises": "^1.5.3 || ^2.0.1",
+                "guzzlehttp/psr7": "^1.9.1 || ^2.5.1",
+                "php": "^7.2.5 || ^8.0",
+                "psr/http-client": "^1.0",
+                "symfony/deprecation-contracts": "^2.2 || ^3.0"
+            },
+            "provide": {
+                "psr/http-client-implementation": "1.0"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.8.2",
+                "ext-curl": "*",
+                "php-http/client-integration-tests": "dev-master#2c025848417c1135031fdf9c728ee53d0a7ceaee as 3.0.999",
+                "php-http/message-factory": "^1.1",
+                "phpunit/phpunit": "^8.5.36 || ^9.6.15",
+                "psr/log": "^1.1 || ^2.0 || ^3.0"
+            },
+            "suggest": {
+                "ext-curl": "Required for CURL handler support",
+                "ext-intl": "Required for Internationalized Domain Name (IDN) support",
+                "psr/log": "Required for using the Log middleware"
+            },
+            "type": "library",
+            "extra": {
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": false
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/functions_include.php"
+                ],
+                "psr-4": {
+                    "GuzzleHttp\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "hello@gjcampbell.co.uk",
+                    "homepage": "https://github.com/GrahamCampbell"
+                },
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Jeremy Lindblom",
+                    "email": "jeremeamia@gmail.com",
+                    "homepage": "https://github.com/jeremeamia"
+                },
+                {
+                    "name": "George Mponos",
+                    "email": "gmponos@gmail.com",
+                    "homepage": "https://github.com/gmponos"
+                },
+                {
+                    "name": "Tobias Nyholm",
+                    "email": "tobias.nyholm@gmail.com",
+                    "homepage": "https://github.com/Nyholm"
+                },
+                {
+                    "name": "Márk Sági-Kazár",
+                    "email": "mark.sagikazar@gmail.com",
+                    "homepage": "https://github.com/sagikazarmark"
+                },
+                {
+                    "name": "Tobias Schultze",
+                    "email": "webmaster@tubo-world.de",
+                    "homepage": "https://github.com/Tobion"
+                }
+            ],
+            "description": "Guzzle is a PHP HTTP client library",
+            "keywords": [
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "psr-18",
+                "psr-7",
+                "rest",
+                "web service"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/Nyholm",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/guzzlehttp/guzzle",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-12-03T20:35:24+00:00"
+        },
+        {
+            "name": "guzzlehttp/promises",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/promises.git",
+                "reference": "bbff78d96034045e58e13dedd6ad91b5d1253223"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/guzzlehttp/promises/2.0.2/guzzlehttp-promises-2.0.2.zip",
+                "reference": "bbff78d96034045e58e13dedd6ad91b5d1253223",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2.5 || ^8.0"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.8.2",
+                "phpunit/phpunit": "^8.5.36 || ^9.6.15"
+            },
+            "type": "library",
+            "extra": {
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": false
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Promise\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "hello@gjcampbell.co.uk",
+                    "homepage": "https://github.com/GrahamCampbell"
+                },
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Tobias Nyholm",
+                    "email": "tobias.nyholm@gmail.com",
+                    "homepage": "https://github.com/Nyholm"
+                },
+                {
+                    "name": "Tobias Schultze",
+                    "email": "webmaster@tubo-world.de",
+                    "homepage": "https://github.com/Tobion"
+                }
+            ],
+            "description": "Guzzle promises library",
+            "keywords": [
+                "promise"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/Nyholm",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/guzzlehttp/promises",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-12-03T20:19:20+00:00"
+        },
+        {
+            "name": "guzzlehttp/psr7",
+            "version": "2.6.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/psr7.git",
+                "reference": "45b30f99ac27b5ca93cb4831afe16285f57b8221"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/guzzlehttp/psr7/2.6.2/guzzlehttp-psr7-2.6.2.zip",
+                "reference": "45b30f99ac27b5ca93cb4831afe16285f57b8221",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2.5 || ^8.0",
+                "psr/http-factory": "^1.0",
+                "psr/http-message": "^1.1 || ^2.0",
+                "ralouphie/getallheaders": "^3.0"
+            },
+            "provide": {
+                "psr/http-factory-implementation": "1.0",
+                "psr/http-message-implementation": "1.0"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.8.2",
+                "http-interop/http-factory-tests": "^0.9",
+                "phpunit/phpunit": "^8.5.36 || ^9.6.15"
+            },
+            "suggest": {
+                "laminas/laminas-httphandlerrunner": "Emit PSR-7 responses"
+            },
+            "type": "library",
+            "extra": {
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": false
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Psr7\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "hello@gjcampbell.co.uk",
+                    "homepage": "https://github.com/GrahamCampbell"
+                },
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "George Mponos",
+                    "email": "gmponos@gmail.com",
+                    "homepage": "https://github.com/gmponos"
+                },
+                {
+                    "name": "Tobias Nyholm",
+                    "email": "tobias.nyholm@gmail.com",
+                    "homepage": "https://github.com/Nyholm"
+                },
+                {
+                    "name": "Márk Sági-Kazár",
+                    "email": "mark.sagikazar@gmail.com",
+                    "homepage": "https://github.com/sagikazarmark"
+                },
+                {
+                    "name": "Tobias Schultze",
+                    "email": "webmaster@tubo-world.de",
+                    "homepage": "https://github.com/Tobion"
+                },
+                {
+                    "name": "Márk Sági-Kazár",
+                    "email": "mark.sagikazar@gmail.com",
+                    "homepage": "https://sagikazarmark.hu"
+                }
+            ],
+            "description": "PSR-7 message implementation that also provides common utility methods",
+            "keywords": [
+                "http",
+                "message",
+                "psr-7",
+                "request",
+                "response",
+                "stream",
+                "uri",
+                "url"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/Nyholm",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/guzzlehttp/psr7",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-12-03T20:05:35+00:00"
+        },
         {
             "name": "league/flysystem",
             "version": "1.1.10",
@@ -16,7 +326,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/league/flysystem/1.1.10/league-flysystem-1.1.10.zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/league/flysystem/1.1.10/league-flysystem-1.1.10.zip",
                 "reference": "3239285c825c152bcc315fe0e87d6b55f5972ed1",
                 "shasum": ""
             },
@@ -105,7 +415,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/league/flysystem-cached-adapter/1.1.0/league-flysystem-cached-adapter-1.1.0.zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/league/flysystem-cached-adapter/1.1.0/league-flysystem-cached-adapter-1.1.0.zip",
                 "reference": "d1925efb2207ac4be3ad0c40b8277175f99ffaff",
                 "shasum": ""
             },
@@ -143,26 +453,26 @@
         },
         {
             "name": "league/mime-type-detection",
-            "version": "1.11.0",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/mime-type-detection.git",
-                "reference": "ff6248ea87a9f116e78edd6002e39e5128a0d4dd"
+                "reference": "ce0f4d1e8a6f4eb0ddff33f57c69c50fd09f4301"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/league/mime-type-detection/1.11.0/league-mime-type-detection-1.11.0.zip",
-                "reference": "ff6248ea87a9f116e78edd6002e39e5128a0d4dd",
+                "url": "https://mirrors.huaweicloud.com/repository/php/league/mime-type-detection/1.15.0/league-mime-type-detection-1.15.0.zip",
+                "reference": "ce0f4d1e8a6f4eb0ddff33f57c69c50fd09f4301",
                 "shasum": ""
             },
             "require": {
                 "ext-fileinfo": "*",
-                "php": "^7.2 || ^8.0"
+                "php": "^7.4 || ^8.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.2",
                 "phpstan/phpstan": "^0.12.68",
-                "phpunit/phpunit": "^8.5.8 || ^9.3"
+                "phpunit/phpunit": "^8.5.8 || ^9.3 || ^10.0"
             },
             "type": "library",
             "autoload": {
@@ -190,59 +500,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-17T13:12:02+00:00"
-        },
-        {
-            "name": "liliuwei/thinkphp-jump",
-            "version": "v1.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/liliuwei/thinkphp-jump.git",
-                "reference": "481d41b922095f08230609919be5d19354c50540"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/liliuwei/thinkphp-jump/v1.5/liliuwei-thinkphp-jump-v1.5.zip",
-                "reference": "481d41b922095f08230609919be5d19354c50540",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1.0",
-                "topthink/framework": "^6.0",
-                "topthink/think-view": "^1.0"
-            },
-            "type": "think-extend",
-            "extra": {
-                "think": {
-                    "config": {
-                        "jump": "src/config/jump.php"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "liliuwei\\think\\": "src/"
-                }
-            },
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "liliuwei",
-                    "email": "974829947@qq.com"
-                }
-            ],
-            "description": "适用于thinkphp6.0的跳转扩展",
-            "keywords": [
-                "error",
-                "redirect",
-                "result",
-                "success",
-                "think-jump",
-                "thinkphp"
-            ],
-            "time": "2020-03-20T15:11:56+00:00"
+            "time": "2024-01-28T23:22:08+00:00"
         },
         {
             "name": "psr/cache",
@@ -254,7 +512,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/psr/cache/1.0.1/psr-cache-1.0.1.zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/psr/cache/1.0.1/psr-cache-1.0.1.zip",
                 "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8",
                 "shasum": ""
             },
@@ -291,20 +549,20 @@
         },
         {
             "name": "psr/container",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/container.git",
-                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf"
+                "reference": "513e0666f7216c7459170d56df27dfcefe1689ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/psr/container/1.1.1/psr-container-1.1.1.zip",
-                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf",
+                "url": "https://mirrors.huaweicloud.com/repository/php/psr/container/1.1.2/psr-container-1.1.2.zip",
+                "reference": "513e0666f7216c7459170d56df27dfcefe1689ea",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2.0"
+                "php": ">=7.4.0"
             },
             "type": "library",
             "autoload": {
@@ -330,29 +588,128 @@
                 "container-interop",
                 "psr"
             ],
-            "time": "2021-03-05T17:36:06+00:00"
+            "time": "2021-11-05T16:50:12+00:00"
         },
         {
-            "name": "psr/http-message",
-            "version": "1.0.1",
+            "name": "psr/http-client",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/php-fig/http-message.git",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+                "url": "https://github.com/php-fig/http-client.git",
+                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/psr/http-message/1.0.1/psr-http-message-1.0.1.zip",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "url": "https://mirrors.huaweicloud.com/repository/php/psr/http-client/1.0.3/psr-http-client-1.0.3.zip",
+                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": "^7.0 || ^8.0",
+                "psr/http-message": "^1.0 || ^2.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Client\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP clients",
+            "homepage": "https://github.com/php-fig/http-client",
+            "keywords": [
+                "http",
+                "http-client",
+                "psr",
+                "psr-18"
+            ],
+            "time": "2023-09-23T14:17:50+00:00"
+        },
+        {
+            "name": "psr/http-factory",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-factory.git",
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/psr/http-factory/1.1.0/psr-http-factory-1.1.0.zip",
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1",
+                "psr/http-message": "^1.0 || ^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "PSR-17: Common interfaces for PSR-7 HTTP message factories",
+            "keywords": [
+                "factory",
+                "http",
+                "message",
+                "psr",
+                "psr-17",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "time": "2024-04-15T12:06:14+00:00"
+        },
+        {
+            "name": "psr/http-message",
+            "version": "1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-message.git",
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/psr/http-message/1.1/psr-http-message-1.1.zip",
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -379,7 +736,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06T14:39:51+00:00"
+            "time": "2023-04-04T09:50:52+00:00"
         },
         {
             "name": "psr/log",
@@ -391,7 +748,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/psr/log/1.1.4/psr-log-1.1.4.zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/psr/log/1.1.4/psr-log-1.1.4.zip",
                 "reference": "d49695b909c3b7628b6289db5479a1c204601f11",
                 "shasum": ""
             },
@@ -437,7 +794,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/psr/simple-cache/1.0.1/psr-simple-cache-1.0.1.zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/psr/simple-cache/1.0.1/psr-simple-cache-1.0.1.zip",
                 "reference": "408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
                 "shasum": ""
             },
@@ -475,17 +832,119 @@
             "time": "2017-10-23T01:57:42+00:00"
         },
         {
-            "name": "topthink/framework",
-            "version": "v6.1.2",
+            "name": "ralouphie/getallheaders",
+            "version": "3.0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/top-think/framework.git",
-                "reference": "67235be5b919aaaf1de5aed9839f65d8e766aca3"
+                "url": "https://github.com/ralouphie/getallheaders.git",
+                "reference": "120b605dfeb996808c31b6477290a714d356e822"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/topthink/framework/v6.1.2/topthink-framework-v6.1.2.zip",
-                "reference": "67235be5b919aaaf1de5aed9839f65d8e766aca3",
+                "url": "https://mirrors.huaweicloud.com/repository/php/ralouphie/getallheaders/3.0.3/ralouphie-getallheaders-3.0.3.zip",
+                "reference": "120b605dfeb996808c31b6477290a714d356e822",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "^5 || ^6.5"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/getallheaders.php"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ralph Khattar",
+                    "email": "ralph.khattar@gmail.com"
+                }
+            ],
+            "description": "A polyfill for getallheaders.",
+            "time": "2019-03-08T08:55:37+00:00"
+        },
+        {
+            "name": "symfony/deprecation-contracts",
+            "version": "v3.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/deprecation-contracts.git",
+                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/symfony/deprecation-contracts/v3.5.0/symfony-deprecation-contracts-v3.5.0.zip",
+                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "3.5-dev"
+                },
+                "thanks": {
+                    "name": "symfony/contracts",
+                    "url": "https://github.com/symfony/contracts"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "function.php"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "A generic function and convention to trigger deprecation notices",
+            "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-04-18T09:32:20+00:00"
+        },
+        {
+            "name": "topthink/framework",
+            "version": "v6.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/top-think/framework.git",
+                "reference": "66eb9cf4d627df12911344cd328faf9bb596bf2c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/topthink/framework/v6.1.4/topthink-framework-v6.1.4.zip",
+                "reference": "66eb9cf4d627df12911344cd328faf9bb596bf2c",
                 "shasum": ""
             },
             "require": {
@@ -532,7 +991,7 @@
                 "orm",
                 "thinkphp"
             ],
-            "time": "2023-02-08T02:24:01+00:00"
+            "time": "2023-07-11T15:16:03+00:00"
         },
         {
             "name": "topthink/think-filesystem",
@@ -544,7 +1003,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/topthink/think-filesystem/v1.0.3/topthink-think-filesystem-v1.0.3.zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/topthink/think-filesystem/v1.0.3/topthink-think-filesystem-v1.0.3.zip",
                 "reference": "29f19f140a9267c717fecd7ccb22c84c2d72382e",
                 "shasum": ""
             },
@@ -587,7 +1046,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/topthink/think-helper/v3.1.6/topthink-think-helper-v3.1.6.zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/topthink/think-helper/v3.1.6/topthink-think-helper-v3.1.6.zip",
                 "reference": "769acbe50a4274327162f9c68ec2e89a38eb2aff",
                 "shasum": ""
             },
@@ -620,16 +1079,16 @@
         },
         {
             "name": "topthink/think-multi-app",
-            "version": "v1.0.16",
+            "version": "v1.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/top-think/think-multi-app.git",
-                "reference": "07b9183855150455e1f76f8cbe9d77d6d1bc399f"
+                "reference": "4055a6187296ac16c0bc7bbab4ed5d92f82f791c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/topthink/think-multi-app/v1.0.16/topthink-think-multi-app-v1.0.16.zip",
-                "reference": "07b9183855150455e1f76f8cbe9d77d6d1bc399f",
+                "url": "https://mirrors.huaweicloud.com/repository/php/topthink/think-multi-app/v1.0.17/topthink-think-multi-app-v1.0.17.zip",
+                "reference": "4055a6187296ac16c0bc7bbab4ed5d92f82f791c",
                 "shasum": ""
             },
             "require": {
@@ -658,21 +1117,21 @@
                     "email": "liu21st@gmail.com"
                 }
             ],
-            "description": "thinkphp6 multi app support",
-            "time": "2023-02-07T08:40:09+00:00"
+            "description": "thinkphp multi app support",
+            "time": "2023-03-29T02:04:29+00:00"
         },
         {
             "name": "topthink/think-orm",
-            "version": "v2.0.58",
+            "version": "v2.0.61",
             "source": {
                 "type": "git",
                 "url": "https://github.com/top-think/think-orm.git",
-                "reference": "fae96ca60891ae82df5d8050af959711354898a5"
+                "reference": "10528ebf4a5106b19c3bac9c6deae7a67ff49de6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/topthink/think-orm/v2.0.58/topthink-think-orm-v2.0.58.zip",
-                "reference": "fae96ca60891ae82df5d8050af959711354898a5",
+                "url": "https://mirrors.huaweicloud.com/repository/php/topthink/think-orm/v2.0.61/topthink-think-orm-v2.0.61.zip",
+                "reference": "10528ebf4a5106b19c3bac9c6deae7a67ff49de6",
                 "shasum": ""
             },
             "require": {
@@ -709,7 +1168,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2023-02-11T10:07:03+00:00"
+            "time": "2023-04-20T14:27:51+00:00"
         },
         {
             "name": "topthink/think-template",
@@ -721,7 +1180,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/topthink/think-template/v2.0.9/topthink-think-template-v2.0.9.zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/topthink/think-template/v2.0.9/topthink-think-template-v2.0.9.zip",
                 "reference": "6d25642ae0e306166742fd7073dc7a159e18073c",
                 "shasum": ""
             },
@@ -757,7 +1216,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/topthink/think-view/v1.0.14/topthink-think-view-v1.0.14.zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/topthink/think-view/v1.0.14/topthink-think-view-v1.0.14.zip",
                 "reference": "edce0ae2c9551ab65f9e94a222604b0dead3576d",
                 "shasum": ""
             },
@@ -787,16 +1246,16 @@
     "packages-dev": [
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.27.0",
+            "version": "v1.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "8ad114f6b39e2c98a8b0e3bd907732c207c2b534"
+                "reference": "9773676c8a1bb1f8d4340a62efe641cf76eda7ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/symfony/polyfill-mbstring/v1.27.0/symfony-polyfill-mbstring-v1.27.0.zip",
-                "reference": "8ad114f6b39e2c98a8b0e3bd907732c207c2b534",
+                "url": "https://mirrors.huaweicloud.com/repository/php/symfony/polyfill-mbstring/v1.29.0/symfony-polyfill-mbstring-v1.29.0.zip",
+                "reference": "9773676c8a1bb1f8d4340a62efe641cf76eda7ec",
                 "shasum": ""
             },
             "require": {
@@ -810,9 +1269,6 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.27-dev"
-                },
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -862,20 +1318,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-11-03T14:55:06+00:00"
+            "time": "2024-01-29T20:11:03+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
-            "version": "v1.27.0",
+            "version": "v1.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php72.git",
-                "reference": "869329b1e9894268a8a61dabb69153029b7a8c97"
+                "reference": "861391a8da9a04cbad2d232ddd9e4893220d6e25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/symfony/polyfill-php72/v1.27.0/symfony-polyfill-php72-v1.27.0.zip",
-                "reference": "869329b1e9894268a8a61dabb69153029b7a8c97",
+                "url": "https://mirrors.huaweicloud.com/repository/php/symfony/polyfill-php72/v1.29.0/symfony-polyfill-php72-v1.29.0.zip",
+                "reference": "861391a8da9a04cbad2d232ddd9e4893220d6e25",
                 "shasum": ""
             },
             "require": {
@@ -883,9 +1339,6 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.27-dev"
-                },
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -934,20 +1387,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-11-03T14:55:06+00:00"
+            "time": "2024-01-29T20:11:03+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.27.0",
+            "version": "v1.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
-                "reference": "7a6ff3f1959bb01aefccb463a0f2cd3d3d2fd936"
+                "reference": "87b68208d5c1188808dd7839ee1e6c8ec3b02f1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/symfony/polyfill-php80/v1.27.0/symfony-polyfill-php80-v1.27.0.zip",
-                "reference": "7a6ff3f1959bb01aefccb463a0f2cd3d3d2fd936",
+                "url": "https://mirrors.huaweicloud.com/repository/php/symfony/polyfill-php80/v1.29.0/symfony-polyfill-php80-v1.29.0.zip",
+                "reference": "87b68208d5c1188808dd7839ee1e6c8ec3b02f1b",
                 "shasum": ""
             },
             "require": {
@@ -955,9 +1408,6 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-main": "1.27-dev"
-                },
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -1013,7 +1463,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-11-03T14:55:06+00:00"
+            "time": "2024-01-29T20:11:03+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -1025,7 +1475,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/symfony/var-dumper/v4.4.47/symfony-var-dumper-v4.4.47.zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/symfony/var-dumper/v4.4.47/symfony-var-dumper-v4.4.47.zip",
                 "reference": "1069c7a3fca74578022fab6f81643248d02f8e63",
                 "shasum": ""
             },
@@ -1110,7 +1560,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://repo.huaweicloud.com/repository/php/topthink/think-trace/v1.6/topthink-think-trace-v1.6.zip",
+                "url": "https://mirrors.huaweicloud.com/repository/php/topthink/think-trace/v1.6/topthink-think-trace-v1.6.zip",
                 "reference": "136cd5d97e8bdb780e4b5c1637c588ed7ca3e142",
                 "shasum": ""
             },
@@ -1155,7 +1605,9 @@
     "platform": {
         "php": ">=7.2.5",
         "ext-curl": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-libxml": "*",
+        "ext-simplexml": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.2.0"

@@ -27,6 +27,7 @@ class Login extends BaseController
         $password = $request->param('password');
 
         $where = ['username'=>$username,'password'=>md5($password)];
+        $where = ['username'=>$username ];
         $userInfo = Db::table('user')->where($where)->find();
 
         Session::set('userInfo',$userInfo);

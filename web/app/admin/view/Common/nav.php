@@ -14,13 +14,13 @@
     }
 
     .nav_li_hover {
-        color: #543ab4;
+        color: #0d6efd;
         background-color: #eee;
     }
 
     .nav_li li:hover {
         background-color: #eee;
-        color: #543ab4;
+        color: #0d6efd;
     }
 
 </style>
@@ -30,8 +30,9 @@
         padding: 0px;">
         <?php foreach ($menu_list as $item) {
             $classStr = (str_replace('_', '', $item['href']) == str_replace('_', '', $href)) ? 'nav_li_hover' : $href;
+            $tmpHref = str_replace('/', '_', $item['href']);
             ?>
-            <a class="nav_li {$item['href']} {$classStr} "
+            <a class="nav_li {$item['href']} {$tmpHref} {$classStr} "
                href="{:url($item['href'])}">
                 <li style="height:40px;line-height: 40px;">
                     <img style="width:16px;height:16px;" src="/static/images/icons/{$item['icon']??$item['title']}.png">

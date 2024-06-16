@@ -23,7 +23,7 @@ foreach ($MenuArr as $key=>$val) {
 <style>
     .bg-custom-menu {
         --bs-bg-opacity: 1;
-        background-color: #543ab4;
+        background-color: #0d6efd;
     }
 
     .navbar-dark .navbar-nav .nav-link {
@@ -88,20 +88,20 @@ foreach ($MenuArr as $key=>$val) {
                            aria-expanded="false">
                             <div class="radius">
                                 <img class="img-circle image-responsive" style="max-width:40px"
-                                     src="/static/images/头像.png" alt="头像"/>
+                                     src="/static/images/头像.jpg" alt="头像"/>
                             </div>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown08">
-<!--                            <li>-->
-<!--                                <a class="dropdown-item" href="{:url('auth/user_info')}">-->
-<!--                                    个人资料-->
-<!--                                </a>-->
-<!--                            </li>-->
-<!--                            <li>-->
-<!--                                <a class="dropdown-item" href="{:url('auth/user_password')}">-->
-<!--                                    修改密码-->
-<!--                                </a>-->
-<!--                            </li>-->
+                            <li>
+                                <a class="dropdown-item"  >
+                                    个人资料
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"  >
+                                    修改密码
+                                </a>
+                            </li>
                             <li>
                                 <a class="dropdown-item" href="{:url('login/logout')}">
                                     退出登录

@@ -3,6 +3,7 @@ declare (strict_types = 1);
 
 namespace app\command;
 
+use app\model\CodeQlModel;
 use app\model\Fortify;
 use app\model\Hema;
 use app\model\Semgrep;
@@ -35,6 +36,10 @@ class scan extends Command
             Fortify::start();
         }elseif ($action == 'hema') {
             Hema::start();
+        }elseif ($action == 'codeql') {
+            CodeQlModel::start();
+        }elseif ($action == 'codeql_ai') {
+            CodeQlModel::ai_message();
         }
         // 指令输出
         $output->writeln('app\command\scan');
