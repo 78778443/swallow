@@ -119,6 +119,21 @@ class CodeQlModel extends Model
 
         }
 
+        foreach ($sarifData['runs'][0]['tool']['driver']['rules'] as $rule) {
+
+            $properties = $rule['properties'];
+            $properties['tags'] = json_encode($properties['tags'], JSON_UNESCAPED_UNICODE);
+            $properties['security_severity'] = $properties['security-severity'];
+            unset($properties['security-severity']);
+            $properties['problem_severity'] = $properties['problem.severity'];
+            unset($properties['problem.severity']);
+            $properties['sub_severity'] = $properties['sub-severity'] ?? '';
+            unset($properties['sub-severity']);
+
+            Db::table('codeql_rules')->extra('IGNORE')->strict(false)->insert($properties);
+
+        }
+
         return $data;
 
     }
