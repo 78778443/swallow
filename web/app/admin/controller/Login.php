@@ -59,7 +59,6 @@ class Login extends BaseController
         }
 
         $data = ['username' => $username, 'password' => md5($password)];
-        $data['user_id'] = Session::get('userInfo')['id'];
         $userId = Db::table('user')->insertGetId($data);
         //获取用户信息
         $userInfo = Db::table('user')->where(['id' => $userId])->find();
