@@ -3,11 +3,6 @@ declare (strict_types=1);
 
 namespace app\admin\controller;
 
-use app\admin\model\DomainModel;
-use app\admin\model\PortsModel;
-use app\admin\model\ProductCateModel;
-use app\admin\model\ProductsModel;
-use app\admin\model\UrlsModel;
 use think\facade\Db;
 use think\facade\View;
 use think\Request;

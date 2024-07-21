@@ -157,7 +157,7 @@ class CodeQlModel extends Model
 
         if (!file_exists($repoDbPath)) {
             // 创建CodeQL数据库
-            $cmd = "codeql database create $repoDbPath --language=python --source-root $codePath";
+            $cmd = "codeql database create $repoDbPath --language={$language} --source-root $codePath";
             echo $cmd . PHP_EOL;
             exec($cmd);
         }
