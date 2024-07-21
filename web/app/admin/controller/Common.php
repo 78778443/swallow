@@ -29,7 +29,7 @@ class Common extends BaseController
             ['title' => '<span style="font-size:17px;"> Fortify</span>', 'href' => 'scan/report', 'icon' => '漏洞管理'],
             ['title' => '<span style="font-size:13px;"> SemGrep</span>', 'href' => 'semgrep/index', 'icon' => 'SemGrep'],
             ['title' => '<span style="font-size:13px;"> WebShell</span>', 'href' => 'hema/index', 'icon' => 'WebShell'],
-            ['title' => '<span style="font-size:15px;"> Code&nbsp;QL</span>', 'href' => 'codeql/index', 'icon' => 'CodeQL'],
+            ['title' => '<span style="font-size:15px;"> Code&nbsp;QL</span>', 'href' => 'codeQl/index', 'icon' => 'CodeQL'],
             ['title' => '用户管理', 'href' => 'user/index'],
         ];
         $headImg = 'https://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83erTCOcE08e8ia72SSqabRHQJr43rRJ1s0Tam2gib9RdQUClVicKyGlibLc0AOuzhTI6qpqY74gVrgzsvA/132';

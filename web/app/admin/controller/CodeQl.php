@@ -40,11 +40,10 @@ class CodeQl extends Common
         $info = Db::table('codeql')->where($where)->find();
 
 
-
         $info['codeFlows'] = json_decode($info['codeFlows'], true);
         foreach ($info['codeFlows'] as &$item) {
             foreach ($item['threadFlows'] as &$val) {
-                foreach ($val['locations'] as &$v){
+                foreach ($val['locations'] as &$v) {
                     $v['location'] = $this->parseSarif($v['location']);
                 }
             }
@@ -52,7 +51,7 @@ class CodeQl extends Common
         }
 
         $info['locations'] = $this->parseSarif(json_decode($info['locations'], true));
-        $info['prompt'] = str_replace("\n","<br>",$info['prompt']);
+        $info['prompt'] = str_replace("\n", "<br>", $info['prompt']);
 
 
         return View::fetch('detail', ['info' => $info]);
@@ -63,9 +62,9 @@ class CodeQl extends Common
 
         $results = [];
         foreach ($list as $location) {
-            if(!isset($location['physicalLocation']))  $location['physicalLocation'] = $location;
+            if (!isset($location['physicalLocation'])) $location['physicalLocation'] = $location;
 
-            if(!isset($location['physicalLocation']['artifactLocation']['uri'])) continue;
+            if (!isset($location['physicalLocation']['artifactLocation']['uri'])) continue;
             $artifactLocation = $location['physicalLocation']['artifactLocation']['uri'];
             $region = $location['physicalLocation']['region'];
             $startLine = $region['startLine'];
