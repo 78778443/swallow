@@ -3,6 +3,7 @@
 namespace app\admin\model;
 
 use think\facade\Db;
+use think\facade\Session;
 use think\Model;
 
 class FortifyModel extends Model
@@ -26,33 +27,33 @@ class FortifyModel extends Model
 
     public static function getDetailCount($project_id = 1)
     {
-
+        $userInfo = Session::get('userInfo');
         $where = $project_id ? ['project_id' => $project_id] : [];
 
         //修复率
-        $repairNum = Db::table('fortify')->where($where)->where(['is_repair' => 1])->count();
-        $unRepairNum = Db::table('fortify')->where($where)->count();
+        $repairNum = Db::table('fortify')->where(['user_id' => $userInfo['id']])->where($where)->where(['is_repair' => 1])->count();
+        $unRepairNum = Db::table('fortify')->where(['user_id' => $userInfo['id']])->where($where)->count();
         $repairCount = (empty($repairNum) && empty($unRepairNum)) ? 0 : intval($repairNum / $unRepairNum);
 
         //漏洞等级
-        $level1 = Db::table('fortify')->where($where)->where(['Folder' => 'Critical'])->count();
-        $level2 = Db::table('fortify')->where($where)->where(['Folder' => 'High'])->count();
-        $level3 = Db::table('fortify')->where($where)->where(['Folder' => 'Medium'])->count();
-        $level4 = Db::table('fortify')->where($where)->where(['Folder' => 'Low'])->count();
+        $level1 = Db::table('fortify')->where(['user_id' => $userInfo['id']])->where($where)->where(['Folder' => 'Critical'])->count();
+        $level2 = Db::table('fortify')->where(['user_id' => $userInfo['id']])->where($where)->where(['Folder' => 'High'])->count();
+        $level3 = Db::table('fortify')->where(['user_id' => $userInfo['id']])->where($where)->where(['Folder' => 'Medium'])->count();
+        $level4 = Db::table('fortify')->where(['user_id' => $userInfo['id']])->where($where)->where(['Folder' => 'Low'])->count();
 
 
         $countList = [
             ['name' => '漏洞总数(个)',
-                'num' => Db::table('fortify')->where($where)->count(),
+                'num' => Db::table('fortify')->where(['user_id' => $userInfo['id']])->where($where)->count(),
                 'lists' => [
-                    '今日新增' => Db::table('fortify')->where($where)->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->count(),
-                    '本周新增' => Db::table('fortify')->where($where)->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->count(),
+                    '今日新增' => Db::table('fortify')->where(['user_id' => $userInfo['id']])->where($where)->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->count(),
+                    '本周新增' => Db::table('fortify')->where(['user_id' => $userInfo['id']])->where($where)->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->count(),
                 ]
             ],
-            ['name' => '受影响仓库(个)', 'num' => Db::table('fortify')->where($where)->group('git_addr')->count(),
+            ['name' => '受影响仓库(个)', 'num' => Db::table('fortify')->where(['user_id' => $userInfo['id']])->where($where)->group('git_addr')->count(),
                 'lists' => [
-                    '总数 ' => Db::table('fortify')->where($where)->group('git_addr')->count(),
-                    '7天新增 ' => Db::table('fortify')->where($where)->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->group('git_addr')->count()
+                    '总数 ' => Db::table('fortify')->where(['user_id' => $userInfo['id']])->where($where)->group('git_addr')->count(),
+                    '7天新增 ' => Db::table('fortify')->where(['user_id' => $userInfo['id']])->where($where)->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->group('git_addr')->count()
                 ]
             ],
             ['name' => '修复率', 'num' => $repairCount, 'lists' => ['待修复' => $unRepairNum, '已修复' => $repairNum]],

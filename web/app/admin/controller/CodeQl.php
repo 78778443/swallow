@@ -5,6 +5,7 @@ namespace app\admin\controller;
 
 use app\model\CodeQlModel;
 use think\facade\Db;
+use think\facade\Session;
 use think\facade\View;
 use think\Request;
 
@@ -12,13 +13,14 @@ class CodeQl extends Common
 {
     public function index(Request $request)
     {
+        $userInfo = Session::get('userInfo');
         $project_id = $request->param('project_id', 0);
         $where = empty($project_id) ? [] : ['project_id' => $project_id];
         $countList = CodeqlModel::getDetailCount($where);
 
         $where2 = [];
 
-        $list = Db::name('codeql')->where($where)->where($where2)->paginate([
+        $list = Db::name('codeql')->where(['user_id' => $userInfo['id']])->where($where)->where($where2)->paginate([
             'list_rows' => 10,
             'var_page' => 'page',
             'query' => $request->param(),
@@ -35,6 +37,7 @@ class CodeQl extends Common
 
     public function detail(Request $request)
     {
+        $userInfo = Session::get('userInfo');
         $id = $request->param('id');
         $where = ['id' => $id];
         $info = Db::table('codeql')->where($where)->find();
@@ -86,6 +89,7 @@ class CodeQl extends Common
     public function readFile(Request $request)
     {
         $filePath = $request->param('file');
+        $code_addr_id = $request->param('code_addr_id');
 
 
         if (!isset($filePath)) {
@@ -96,8 +100,9 @@ class CodeQl extends Common
 
 
         // Ensure the file path is safe
-        $realBase = '/data/code/kcweb/';
-        $realUserPath = realpath($realBase . $filePath);
+        $realBase = Db::table('git_addr')->where(['id' => $code_addr_id])->value('code_path');
+        $realUserPath = realpath($realBase ."/". $filePath);
+
 
         // Check for directory traversal attempts
         if ($realUserPath === false || strpos($realUserPath, $realBase) !== 0) {

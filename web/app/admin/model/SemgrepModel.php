@@ -3,6 +3,7 @@
 namespace app\admin\model;
 
 use think\facade\Db;
+use think\facade\Session;
 use think\Model;
 
 class SemgrepModel extends Model
@@ -28,24 +29,25 @@ class SemgrepModel extends Model
     {
 
 
+        $userInfo = Session::get('userInfo');
         //修复率
-        $repairNum = Db::table('semgrep')->where($where)->where(['is_repair' => 1])->count();
-        $unRepairNum = Db::table('semgrep')->where($where)->count();
+        $repairNum = Db::table('semgrep')->where(['user_id' => $userInfo['id']])->where($where)->where(['is_repair' => 1])->count();
+        $unRepairNum = Db::table('semgrep')->where(['user_id' => $userInfo['id']])->where($where)->count();
         $repairCount = (empty($repairNum) && empty($unRepairNum)) ? 0 : intval($repairNum / $unRepairNum);
 
 
         $countList = [
             ['name' => '风险总数(个)',
-                'num' => Db::table('semgrep')->where($where)->count(),
+                'num' => Db::table('semgrep')->where(['user_id' => $userInfo['id']])->where($where)->count(),
                 'lists' => [
-                    '今日新增' => Db::table('semgrep')->where($where)->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->count(),
-                    '本周新增' => Db::table('semgrep')->where($where)->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->count(),
+                    '今日新增' => Db::table('semgrep')->where(['user_id' => $userInfo['id']])->where($where)->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->count(),
+                    '本周新增' => Db::table('semgrep')->where(['user_id' => $userInfo['id']])->where($where)->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->count(),
                 ]
             ],
-            ['name' => '受影响仓库(个)', 'num' => Db::table('semgrep')->where($where)->group('git_addr')->count(),
+            ['name' => '受影响仓库(个)', 'num' => Db::table('semgrep')->where(['user_id' => $userInfo['id']])->where($where)->group('git_addr')->count(),
                 'lists' => [
-                    '总数 ' => Db::table('semgrep')->where($where)->group('git_addr')->count(),
-                    '7天新增 ' => Db::table('semgrep')->where($where)->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->group('git_addr')->count()
+                    '总数 ' => Db::table('semgrep')->where(['user_id' => $userInfo['id']])->where($where)->group('git_addr')->count(),
+                    '7天新增 ' => Db::table('semgrep')->where(['user_id' => $userInfo['id']])->where($where)->whereTime('create_time', '>=', date('Y-m-d', time() - (7 * 86400)))->group('git_addr')->count()
                 ]
             ],
             ['name' => '修复率', 'num' => $repairCount, 'lists' => ['待修复' => $unRepairNum, '已修复' => $repairNum]],

@@ -39,7 +39,7 @@
         color: #888;
     }
 
-    .hrefBack{
+    .hrefBack {
         background-color: #eee;
     }
 
@@ -84,7 +84,8 @@
                     <?php foreach ($info['codeFlows'] as $k => $result) { ?>
                         <div class="accordion-item">
                             <h2 class="accordion-header">
-                                <button style="font-size: 13px;color: #999;padding: 8px 10px;" class="accordion-button collapsed"
+                                <button style="font-size: 13px;color: #999;padding: 8px 10px;"
+                                        class="accordion-button collapsed"
                                         type="button"
                                         data-bs-toggle="collapse"
                                         data-bs-target="#collapseOne{$k}" aria-expanded="false"
@@ -174,9 +175,7 @@
     const showFile = (filePath, startLine, startColumn, endColumn) => {
 
 
-
-
-        fetch(`/admin/Codeql/readFile.html?file=` + filePath, {headers: {'Content-Type': 'application/json'}})
+        fetch('/admin/Codeql/readFile.html?code_addr_id={$info["code_addr_id"]}&file=' + filePath, {headers: {'Content-Type': 'application/json'}})
             .then(response => response.json())
             .then(data => {
                 if (data.error) {

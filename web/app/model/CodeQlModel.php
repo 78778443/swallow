@@ -3,6 +3,7 @@
 namespace app\model;
 
 use think\facade\Db;
+use think\facade\Session;
 use think\Model;
 
 
@@ -13,8 +14,7 @@ class CodeQlModel extends Model
     {
 
 
-        $countList = [
-        ];
+        $countList = [];
 
         return $countList;
     }
@@ -52,9 +52,9 @@ class CodeQlModel extends Model
 
 
         //处理数据
-        $data = [];
-        foreach ($list as $value) {
 
+        foreach ($list as $value) {
+            $data = [];
             $codePath = $value['code_path'];
             //执行检测脚本
             $resultsPath = self::execTool($codePath);
@@ -69,6 +69,7 @@ class CodeQlModel extends Model
                 print_r("codeql 扫描失败:{$value['code_path']}\n");
                 continue;
             }
+
             Db::table('codeql')->replace()->strict(false)->insertAll($data);
 
             //更新扫描时间
@@ -96,7 +97,7 @@ class CodeQlModel extends Model
         }
     }
 
-    public static function WriteData($resultsPath)
+    public static function WriteData($resultsPath,$gitInfo)
     {
         if (!file_exists($resultsPath)) {
             echo "扫描结果文件不存在:{$resultsPath}\n";
@@ -113,7 +114,10 @@ class CodeQlModel extends Model
                 'message' => $result['message']['text'],
                 'locations' => json_encode($result['locations']),
                 'codeFlows' => json_encode($result['codeFlows'] ?? []),
-                'prompt' => rtrim(self::getPrompt($result)),
+                'prompt' => rtrim(self::getPrompt($result,$gitInfo)),
+                'user_id' => $gitInfo['user_id'],
+                'project_id' => $gitInfo['project_id'],
+                'code_addr_id' => $gitInfo['id'],
                 'ai_message' => ''
             ];
 
@@ -129,7 +133,6 @@ class CodeQlModel extends Model
             unset($properties['problem.severity']);
             $properties['sub_severity'] = $properties['sub-severity'] ?? '';
             unset($properties['sub-severity']);
-
             Db::table('codeql_rules')->extra('IGNORE')->strict(false)->insert($properties);
 
         }
@@ -176,12 +179,12 @@ class CodeQlModel extends Model
 
     }
 
-    public static function getSourceCodeSnippet($filePath, $startLine, $endLine)
+    public static function getSourceCodeSnippet($filePath, $startLine, $endLine,$gitInfo)
     {
         if (strpos($filePath, "file:") !== false) {
             $filePath = str_replace("file:", "", $filePath);
         } else {
-            $filePath = "/data/code/kcweb/{$filePath}";
+            $filePath = "{$gitInfo['code_path']}/{$filePath}";
         }
 
         $sourceCodeSnippet = '';
@@ -194,7 +197,7 @@ class CodeQlModel extends Model
         return $sourceCodeSnippet;
     }
 
-    public static function getPrompt($result): string
+    public static function getPrompt($result,$gitInfo): string
     {
 
         // 提取漏洞信息
@@ -214,7 +217,7 @@ class CodeQlModel extends Model
                     $filePath = $location['location']['physicalLocation']['artifactLocation']['uri'];
                     $startLine = $location['location']['physicalLocation']['region']['startLine'];
                     $endLine = $location['location']['physicalLocation']['region']['endLine'] ?? $startLine;
-                    $snippet = self::getSourceCodeSnippet($filePath, $startLine, $endLine);
+                    $snippet = self::getSourceCodeSnippet($filePath, $startLine, $endLine,$gitInfo);
                     $sourceCodeSnippets .= "代码 {$filePath} 片段（行 $startLine 到 $endLine ）：\n$snippet\n\n";
                 }
             }
@@ -222,7 +225,7 @@ class CodeQlModel extends Model
             // 如果没有 codeFlows 信息，使用漏洞位置的行号
             $startLine = $lineNumber;
             $endLine = $lineNumber;
-            $sourceCodeSnippets = self::getSourceCodeSnippet($filePath, $startLine, $endLine);
+            $sourceCodeSnippets = self::getSourceCodeSnippet($filePath, $startLine, $endLine,$gitInfo);
         }
 
         // 构建审计提示

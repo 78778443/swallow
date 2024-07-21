@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace app\admin\controller;
 
 use think\facade\Db;
+use think\facade\Session;
 use think\facade\View;
 use think\Request;
 
@@ -11,11 +12,12 @@ class GitAddr extends Common
 {
     public function index(Request $request)
     {
+        $userInfo = Session::get('userInfo');
         $where = [];
-        $totalNum = Db::table('git_addr')->where($where)->count();
+        $totalNum = Db::table('git_addr')->where(['user_id' => $userInfo['id']])->where($where)->count();
 
 
-        $list = Db::name('git_addr')->where($where)->paginate([
+        $list = Db::name('git_addr')->where(['user_id' => $userInfo['id']])->where($where)->paginate([
             'list_rows' => 10,
             'var_page' => 'page',
         ]);
@@ -24,9 +26,9 @@ class GitAddr extends Common
 
         foreach ($mainList as &$item) {
             $where = ['project_id' => $item['project_id']];
-            $item['fortify'] = Db::table('fortify')->where($where)->count();
-            $item['semgrep'] = Db::table('semgrep')->where($where)->count();
-            $item['webshell'] = Db::table('hema')->where($where)->count();
+            $item['fortify'] = Db::table('fortify')->where(['user_id' => $userInfo['id']])->where($where)->count();
+            $item['semgrep'] = Db::table('semgrep')->where(['user_id' => $userInfo['id']])->where($where)->count();
+            $item['webshell'] = Db::table('hema')->where(['user_id' => $userInfo['id']])->where($where)->count();
         }
 
         $data = ['mainList' => $mainList, 'totalNum' => $totalNum, 'page' => $page];
@@ -69,6 +71,7 @@ class GitAddr extends Common
 
         foreach ($gitAddrArr as $url) {
             $data['git_addr'] = trim($url);
+            $data['user_id'] = Session::get('userInfo')['id'];
             Db::table('git_addr')->strict(false)->extra('IGNORE')->insert($data);
         }
 

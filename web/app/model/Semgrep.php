@@ -3,6 +3,7 @@
 namespace app\model;
 
 use think\facade\Db;
+use think\facade\Session;
 use think\Model;
 
 
@@ -29,6 +30,7 @@ class Semgrep extends Model
                 print_r("semgrep 扫描失败:{$item['code_path']}");
                 continue;
             }
+            foreach ($ret as &$value) $value['user_id'] = $item['user_id'];
             Db::table('semgrep')->replace()->strict(false)->insertAll($ret);
 
             $data = ['semgrep_scan_time' => date('Y-m-d H:i:s')];
@@ -43,7 +45,7 @@ class Semgrep extends Model
             GitAddr::execTool($info);
             echo "代码目录不存在:{$codePath} , 即将自动下载... \n";
         }
-        $hash = md5($codePath).date('YmdH');
+        $hash = md5($codePath) . date('YmdH');
         $outFile = "/tmp/{$hash}.json";
         if (!file_exists($outFile)) {
             print_r("开始扫描|{$codePath}|{$outFile}");

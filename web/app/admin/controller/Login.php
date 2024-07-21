@@ -11,6 +11,7 @@ use think\facade\Route;
 use think\facade\View;
 use think\Request;
 use think\facade\Session;
+
 class Login extends BaseController
 {
 
@@ -26,11 +27,44 @@ class Login extends BaseController
         $username = $request->param('username');
         $password = $request->param('password');
 
-        $where = ['username'=>$username,'password'=>md5($password)];
-        $where = ['username'=>$username ];
+        $where = ['username' => $username, 'password' => md5($password)];
+//        $where = ['username' => $username];
+
         $userInfo = Db::table('user')->where($where)->find();
 
-        Session::set('userInfo',$userInfo);
+        Session::set('userInfo', $userInfo);
+        return redirect('/admin/home/index');
+    }
+
+    public function register(Request $request)
+    {
+
+
+        return View::fetch('register');
+    }
+
+    public function _doRegister(Request $request)
+    {
+        $username = $request->param('username');
+        $password = $request->param('password');
+        $repassword = $request->param('repassword');
+        if ($password != $repassword) {
+            return redirect('/admin/login/register')->with('error', '两次密码不一致');
+        }
+        //判断是否已经存在
+        $where = ['username' => $username];
+        $userInfo = Db::table('user')->where($where)->find();
+        if ($userInfo) {
+            return redirect('/admin/login/register')->with('error', '用户名已经存在');
+        }
+
+        $data = ['username' => $username, 'password' => md5($password)];
+        $data['user_id'] = Session::get('userInfo')['id'];
+        $userId = Db::table('user')->insertGetId($data);
+        //获取用户信息
+        $userInfo = Db::table('user')->where(['id' => $userId])->find();
+
+        Session::set('userInfo', $userInfo);
         return redirect('/admin/home/index');
     }
 

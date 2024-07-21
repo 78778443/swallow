@@ -5,6 +5,7 @@ namespace app\admin\controller;
 
 use app\admin\model\FortifyModel;
 use think\facade\Db;
+use think\facade\Session;
 use think\facade\View;
 use think\Request;
 
@@ -12,6 +13,7 @@ class Scan extends Common
 {
     public function report(Request $request)
     {
+        $userInfo = Session::get('userInfo');
         $project_id = $request->param('project_id', 0);
         $where = empty($project_id) ? [] : ['project_id' => $project_id];
         $countList = FortifyModel::getDetailCount($project_id);
@@ -19,7 +21,7 @@ class Scan extends Common
 
         if ($request->param('is_repair') !== null) $where['is_repair'] = $request->param('is_repair');
         if ($request->param('Folder') !== null) $where['Folder'] = $request->param('Folder');
-        $list = Db::name('fortify')->where($where)->paginate([
+        $list = Db::name('fortify')->where(['user_id' => $userInfo['id']])->where($where)->paginate([
             'list_rows' => 10,
             'var_page' => 'page',
             'query' => $request->param(),
@@ -43,9 +45,10 @@ class Scan extends Common
 
     public function detail(Request $request)
     {
+        $userInfo = Session::get('userInfo');
         $id = $request->param('id');
         $where = [ 'id' => $id];
-        $info = Db::table('fortify')->where($where)->find();
+        $info = Db::table('fortify')->where(['user_id' => $userInfo['id']])->where($where)->find();
 
         $where = ['project_id' => $info['project_id'],'git_addr'=>$info['git_addr']];
         $preId = Db::table('fortify')->where($where)->where('id', '<', $id)->value('id');

@@ -3,6 +3,7 @@
 namespace app\model;
 
 use think\facade\Db;
+use think\facade\Session;
 use think\Model;
 
 
@@ -40,6 +41,7 @@ class Hema extends Model
                 print_r("hema 扫描失败:{$value['code_path']}\n");
                 continue;
             }
+            foreach ($data as &$val) $val['user_id'] = $value['user_id'];
             Db::table('hema')->replace()->strict(false)->insertAll($data);
 
             //更新扫描时间

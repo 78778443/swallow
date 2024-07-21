@@ -3,6 +3,7 @@
 namespace app\model;
 
 use think\facade\Db;
+use think\facade\Session;
 use think\Model;
 
 
@@ -29,6 +30,7 @@ class Fortify extends Model
                 print_r("fortify 扫描失败:{$item['code_path']}\n");
                 continue;
             }
+            foreach ($ret as &$value) $value['user_id'] = $item['user_id'];
             Db::table('fortify')->replace()->strict(false)->insertAll($ret);
 
             $data = ['fortify_scan_time' => date('Y-m-d H:i:s')];

@@ -9,6 +9,7 @@ use app\admin\validate\ProjectConfValidate;
 use think\exception\ValidateException;
 use think\facade\Db;
 use think\facade\Route;
+use think\facade\Session;
 use think\facade\View;
 use think\Request;
 
@@ -18,9 +19,10 @@ class Project extends Common
     public function index(Request $request)
     {
 
+        $userInfo = Session::get('userInfo');
         $where = [];
-        $totalNum= Db::name('project')->where($where)->count();
-        $list = Db::name('project')->where($where)->paginate([
+        $totalNum = Db::name('project')->where(['user_id' => $userInfo['id']])->where($where)->count();
+        $list = Db::name('project')->where(['user_id' => $userInfo['id']])->where($where)->paginate([
             'list_rows' => 10,
             'var_page' => 'page',
         ]);
@@ -41,7 +43,7 @@ class Project extends Common
         $projectConf = Db::table('project_conf')->where($where)->column('value', 'key');
 
         $mainList = Db::table('git_addr')->where($where)->select()->toArray();
-        $data = ['mainList' => $mainList,   'projectConf' => $projectConf];
+        $data = ['mainList' => $mainList, 'projectConf' => $projectConf];
         View::assign($request->param());
 
         return View::fetch('setting', $data);
@@ -53,6 +55,7 @@ class Project extends Common
         $domainArr = explode("\n", $domainStr);
         foreach ($domainArr as $domain) {
             $data = ['domain' => $domain, 'project_id' => 1];
+            $data['user_id'] = Session::get('userInfo')['id'];
             Db::table('domain')->extra('IGNORE')->insert($data);
             Db::table('git_addr')->extra('IGNORE')->insert($data);
         }
@@ -109,16 +112,18 @@ class Project extends Common
         $gitAddr = $request->param('name');
         $desc = $request->param('desc');
 
-        $data = ['name'=>$gitAddr,'desc'=>$desc];
+        $data = ['name' => $gitAddr, 'desc' => $desc];
+        $data['user_id'] = Session::get('userInfo')['id'];
         $projectId = Db::table('project')->strict(false)->extra('IGNORE')->insertGetId($data);
 
 
-        $data = ['project_id'=>$projectId];
+        $data = ['project_id' => $projectId];
         $gitAddr = $request->param('git_addr');
         $gitAddrArr = explode("\n", $gitAddr);
 
         foreach ($gitAddrArr as $url) {
             $data['git_addr'] = trim($url);
+            $data['user_id'] = Session::get('userInfo')['id'];
             Db::table('git_addr')->strict(false)->extra('IGNORE')->insert($data);
         }
 
