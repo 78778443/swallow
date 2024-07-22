@@ -171,7 +171,7 @@ class CodeQlModel extends Model
         exec($cmd);
 
         // 分析代码
-        $cmd = "codeql database analyze $repoDbPath $qlPackPath --format=sarifv2.1.0 --output=$resultsPath   -Xmx512m";
+        $cmd = "codeql database analyze $repoDbPath $qlPackPath --format=sarifv2.1.0 --output=$resultsPath ";
         echo $cmd . PHP_EOL;
         exec($cmd);
 
