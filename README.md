@@ -3,6 +3,9 @@
 在软件开发中代码审计是确保代码安全性的重要环节。传统的代码审计方法常常依赖人工审查和静态分析工具，耗时且易于遗漏潜在问题。
 为了提升代码审计的效率，我引入了CodeQL和GPT的结合，利用CodeQL的强大分析能力和ChatGPT的自然语言处理能力，实现了代码审计效率的显著提升。
 
+在线体验地址: https://swallow.songboy.site/
+
+
 ![](https://oss.songboy.site/blog/eda192d4f4ada8753f0e4b6ee13ae9a.png)
 
 ### 技术方案
