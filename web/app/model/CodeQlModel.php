@@ -56,8 +56,10 @@ class CodeQlModel extends Model
         foreach ($list as $value) {
             $data = [];
             $codePath = $value['code_path'];
+            //检测项目语言
+            $language = self::detectLanguage($codePath);
             //执行检测脚本
-            $resultsPath = self::execTool($codePath);
+            $resultsPath = self::execTool($codePath, $language);
 
             //录入检测结果
             $tempList = self::writeData($resultsPath, $value);
@@ -74,18 +76,47 @@ class CodeQlModel extends Model
 
             //更新扫描时间
             $data = ['codeql_scan_time' => date('Y-m-d H:i:s')];
-//            Db::table('git_addr')->where(['id' => $value['id']])->update($data);
+            Db::table('git_addr')->where(['id' => $value['id']])->update($data);
         }
+    }
+
+    //自动检测项目语言
+    public static function detectLanguage($codePath)
+    {
+        // 检查是否有Java项目文件
+        if (file_exists($codePath . '/pom.xml') || file_exists($codePath . '/build.gradle')) {
+            return 'java';
+        }
+        // 检查是否有JavaScript项目文件
+        if (file_exists($codePath . '/package.json')) {
+            return 'javascript';
+        }
+        // 检查是否有Go项目文件
+        if (file_exists($codePath . '/go.mod') || file_exists($codePath . '/main.go')) {
+            return 'go';
+        }
+        // 检查是否有Python项目文件
+        if (file_exists($codePath . '/requirements.txt') || file_exists($codePath . '/setup.py')) {
+            return 'python';
+        }
+        // 默认返回python
+        return 'python';
     }
 
     public static function autoDownTool()
     {
-        if (!file_exists('/opt/codeql/codeql')) {
-            // 下载工具
-            $url = "https://github.com/github/codeql-cli-binaries/releases/latest/download/codeql-linux64.zip";
-            $cmd = "curl -sSL {$url} -o codeql.zip && unzip codeql.zip -d /opt && ln -s /opt/codeql/codeql /usr/local/bin/codeql";
 
-            echo "开始安装CodeQL :{$cmd} \n";
+
+//        $url = "https://github.com/github/codeql-cli-binaries/releases/latest/download/codeql-linux64.zip";
+
+        // 用户已指定的CodeQL路径
+        $userCodeqlPath = 'codeql';
+        $codeqlBinary = "{$userCodeqlPath}/codeql";
+        
+        // 检查CodeQL是否存在并创建软链接
+        if (file_exists($codeqlBinary) && !file_exists('/usr/local/bin/codeql')) {
+            $cmd = "ln -sf {$codeqlBinary} /usr/local/bin/codeql";
+            echo "创建CodeQL软链接:{$cmd} \n";
             exec($cmd);
         }
 
@@ -158,20 +189,35 @@ class CodeQlModel extends Model
         if (!file_exists(dirname($repoDbPath))) mkdir(dirname($repoDbPath), 0777, true);
         if (!file_exists(dirname($resultsPath))) mkdir(dirname($resultsPath), 0777, true);
 
+        // 使用用户指定的CodeQL完整路径
+        $codeqlBinary = '/Users/song/mycode/neolix/swallow/codeql/codeql';
+
+        // 对于Java项目，先删除旧的数据库以确保重新构建
+        if ($language == 'java' && file_exists($repoDbPath)) {
+            echo "删除旧的Java数据库: {$repoDbPath}\n";
+            $cmd = "rm -rf {$repoDbPath}";
+            exec($cmd);
+        }
+        
         if (!file_exists($repoDbPath)) {
-            // 创建CodeQL数据库
-            $cmd = "codeql database create $repoDbPath --language={$language} --source-root $codePath";
+            // 创建CodeQL数据库，使用--command true参数跳过构建过程
+            $cmd = "{$codeqlBinary} database create $repoDbPath --language={$language} --source-root $codePath --build-mode=none";
+            echo "使用--command true参数跳过构建过程\n";
             echo $cmd . PHP_EOL;
             exec($cmd);
         }
 
-
-        $cmd = "codeql database finalize {$repoDbPath}";
-        echo $cmd . PHP_EOL;
-        exec($cmd);
+        // 检查database是否已经finalize（通过检查是否存在results目录）
+        if (file_exists($repoDbPath . '/results')) {
+            echo "数据库已完成finalize\n";
+        } else {
+            $cmd = "{$codeqlBinary} database finalize {$repoDbPath}";
+            echo $cmd . PHP_EOL;
+            exec($cmd);
+        }
 
         // 分析代码
-        $cmd = "codeql database analyze $repoDbPath $qlPackPath --format=sarifv2.1.0 --output=$resultsPath ";
+        $cmd = "{$codeqlBinary} database analyze $repoDbPath $qlPackPath --format=sarifv2.1.0 --output=$resultsPath ";
         echo $cmd . PHP_EOL;
         exec($cmd);
 
