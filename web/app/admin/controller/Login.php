@@ -32,8 +32,13 @@ class Login extends BaseController
 
         $userInfo = Db::table('user')->where($where)->find();
 
-        Session::set('userInfo', $userInfo);
-        return redirect('/admin/home/index');
+        if ($userInfo) {
+            Session::set('userInfo', $userInfo);
+            return redirect('/admin/home/index');
+        } else {
+            // 登录失败，返回登录页面并显示错误信息
+            return redirect('/admin/login/index')->with('error', '用户名或密码错误');
+        }
     }
 
     public function register(Request $request)
