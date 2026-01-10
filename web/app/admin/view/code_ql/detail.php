@@ -175,7 +175,7 @@
     const showFile = (filePath, startLine, startColumn, endColumn) => {
 
 
-        fetch('/admin/Codeql/readFile.html?code_addr_id={$info["project_id"]}&file=' + filePath, {headers: {'Content-Type': 'application/json'}})
+        fetch('/admin/CodeQl/readFile.html?code_addr_id={$info["project_id"]}&file=' + filePath, {headers: {'Content-Type': 'application/json'}})
             .then(response => response.json())
             .then(data => {
                 if (data.error) {

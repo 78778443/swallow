@@ -139,6 +139,8 @@ class CodeQlModel extends Model
         $sarifData = json_decode($sarifContent, true);
 
         $data = [];
+        $processedFiles = []; // 用于存储已处理的文件，避免重复处理
+        
         foreach ($sarifData['runs'][0]['results'] as $result) {
             $data[] = [
                 'ruleId' => $result['ruleId'],
@@ -152,6 +154,63 @@ class CodeQlModel extends Model
                 'ai_message' => ''
             ];
 
+            // 提取所有相关文件路径并保存到codeql_code表
+            $allLocations = [];
+            // 添加结果中的locations
+            $allLocations = array_merge($allLocations, $result['locations']);
+            // 添加codeFlows中的locations
+            if (!empty($result['codeFlows'])) {
+                foreach ($result['codeFlows'] as $codeFlow) {
+                    foreach ($codeFlow['threadFlows'] as $threadFlow) {
+                        foreach ($threadFlow['locations'] as $location) {
+                            $allLocations[] = $location['location'];
+                        }
+                    }
+                }
+            }
+            
+            // 处理所有locations，提取文件路径
+            foreach ($allLocations as $location) {
+                $filePath = $location['physicalLocation']['artifactLocation']['uri'];
+                $fileKey = $gitInfo['project_id'] . '_' . $filePath;
+                
+                // 如果该文件已处理，则跳过
+                if (isset($processedFiles[$fileKey])) {
+                    continue;
+                }
+                
+                try {
+                    // 构建完整的文件路径
+                    if (strpos($filePath, "file:") === false) {
+                        $fullPath = "{$gitInfo['code_path']}/{$filePath}";
+                    } else {
+                        $fullPath = str_replace("file:", "", $filePath);
+                    }
+                    
+                    // 读取文件内容
+                    if (file_exists($fullPath)) {
+                        $content = file_get_contents($fullPath);
+                        
+                        // 保存到codeql_code表
+                        $codeData = [
+                            'project_id' => $gitInfo['project_id'],
+                            'file_path' => $filePath,
+                            'content' => $content,
+                            'create_time' => date('Y-m-d H:i:s'),
+                            'update_time' => date('Y-m-d H:i:s')
+                        ];
+                        
+                        // 使用insertOrUpdate确保只保存一次
+                        Db::table('codeql_code')->insertOrUpdate($codeData, ['project_id', 'file_path']);
+                        
+                        // 标记为已处理
+                        $processedFiles[$fileKey] = true;
+                    }
+                } catch (\Exception $e) {
+                    // 如果处理文件时出错，记录错误并继续处理其他文件
+                    echo "处理文件时出错: {$filePath} - {$e->getMessage()}\n";
+                }
+            }
         }
 
         foreach ($sarifData['runs'][0]['tool']['driver']['rules'] as $rule) {
@@ -227,6 +286,7 @@ class CodeQlModel extends Model
 
     public static function getSourceCodeSnippet($filePath, $startLine, $endLine,$gitInfo)
     {
+        $originalFilePath = $filePath;
         if (strpos($filePath, "file:") !== false) {
             $filePath = str_replace("file:", "", $filePath);
         } else {
@@ -240,6 +300,44 @@ class CodeQlModel extends Model
                 $sourceCodeSnippet .= $fileContent[$i];
             }
         }
+
+        // 将完整文件内容保存到codeql_code表
+        $fullContent = file_get_contents($filePath);
+        
+        // 确保codeql_code表存在
+        $createTableSql = "CREATE TABLE IF NOT EXISTS `codeql_code` (
+            `id` int NOT NULL AUTO_INCREMENT,
+            `project_id` int NOT NULL DEFAULT '0' COMMENT '项目ID',
+            `file_path` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '文件路径',
+            `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '文件内容',
+            `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+            `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+            PRIMARY KEY (`id`) USING BTREE,
+            UNIQUE KEY `project_id_file_path` (`project_id`,`file_path`) USING BTREE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;";
+        Db::execute($createTableSql);
+
+        // 保存或更新文件内容
+        $existingContent = Db::table('codeql_code')
+            ->where(['project_id' => $gitInfo['project_id'], 'file_path' => $originalFilePath])
+            ->find();
+
+        if ($existingContent) {
+            // 更新现有记录
+            Db::table('codeql_code')
+                ->where(['id' => $existingContent['id']])
+                ->update([
+                    'content' => $fullContent
+                ]);
+        } else {
+            // 插入新记录
+            Db::table('codeql_code')->insert([
+                'project_id' => $gitInfo['project_id'],
+                'file_path' => $originalFilePath,
+                'content' => $fullContent
+            ]);
+        }
+
         return $sourceCodeSnippet;
     }
 

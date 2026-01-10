@@ -148,13 +148,25 @@ class CodeQl extends Common
         $code_addr_id = $request->param('code_addr_id');
 
 
+
+        // 尝试从codeql_code表中获取文件内容
+        $cachedContent = Db::table('codeql_code')
+            ->where(['project_id' => $code_addr_id, 'file_path' => $filePath])
+            ->value('content');
+
+        if ($cachedContent) {
+            // 如果缓存存在，直接返回
+            $encodedContent = base64_encode($cachedContent);
+            return json(['content' => $encodedContent]);
+        }
+
+        // 如果缓存不存在，读取文件并保存到缓存
         // Ensure the file path is safe
         $realBase = Db::table('git_addr')->where(['project_id' => $code_addr_id])->value('code_path');
         $realUserPath = realpath($realBase . "/" . $filePath);
 
         // Check for directory traversal attempts
         if ($realUserPath === false || strpos($realUserPath, $realBase) !== 0) {
-
             http_response_code(400);
             echo json_encode(['error' => 'Invalid file path']);
             exit;
@@ -170,7 +182,14 @@ class CodeQl extends Common
         // Return file content
         $content = file_get_contents($realUserPath);
         $encodedContent = base64_encode($content);
-        return json(['content' => $encodedContent]);
 
+        // 保存文件内容到codeql_code表
+        Db::table('codeql_code')->insert([
+            'project_id' => $code_addr_id,
+            'file_path' => $filePath,
+            'content' => $content
+        ]);
+
+        return json(['content' => $encodedContent]);
     }
 }
