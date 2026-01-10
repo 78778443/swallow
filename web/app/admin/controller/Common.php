@@ -26,10 +26,10 @@ class Common extends BaseController
         $menuList = [
             ['title' => '概要', 'href' => 'home/index'],
             ['title' => '项目列表', 'href' => 'project/index'],
-            ['title' => '仓库列表', 'href' => 'git_addr/index'],
-            ['title' => '<span style="font-size:17px;"> Fortify</span>', 'href' => 'scan/report', 'icon' => '漏洞管理'],
-            ['title' => '<span style="font-size:13px;"> SemGrep</span>', 'href' => 'semgrep/index', 'icon' => 'SemGrep'],
-            ['title' => '<span style="font-size:13px;"> WebShell</span>', 'href' => 'hema/index', 'icon' => 'WebShell'],
+//            ['title' => '仓库列表', 'href' => 'git_addr/index'],
+//            ['title' => '<span style="font-size:17px;"> Fortify</span>', 'href' => 'scan/report', 'icon' => '漏洞管理'],
+//            ['title' => '<span style="font-size:13px;"> SemGrep</span>', 'href' => 'semgrep/index', 'icon' => 'SemGrep'],
+//            ['title' => '<span style="font-size:13px;"> WebShell</span>', 'href' => 'hema/index', 'icon' => 'WebShell'],
             ['title' => '<span style="font-size:15px;"> Code&nbsp;QL</span>', 'href' => 'codeQl/index', 'icon' => 'CodeQL'],
 
         ];

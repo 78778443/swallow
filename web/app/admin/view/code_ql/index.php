@@ -14,39 +14,76 @@
     </div>
     <div class="col-11 tuchu" style="border-radius: 5px;">
         <div class="row">
-            <?php foreach ($countList as $item) { ?>
-                <div class="col-3">
-                    <div style="height: 155px;margin-bottom:20px;border-radius: 10px;padding:10px;border: 1px solid #eee;">
-                        <p style="color: #ccc;font-weight:bold;">{$item['name']}</p>
-                        <h4>{$item['num']}</h4>
-                        <?php foreach ($item['lists'] as $tag => $num) { ?>
-                            <span style="color: #ccc;">{$tag}</span> <span>{$num}</span>&nbsp;
-                        <?php } ?>
-                    </div>
-
-                </div>
-            <?php } ?>
-
-        </div>
-        <div class="row">
             <div class="col-12">
 
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
                     <a type="button"
-                       class="btn btn-outline-primary  <?php echo isset($param['extra']) ? '' : 'active' ?> "
+                       class="btn btn-outline-primary  <?php echo ($status == 'all') ? 'active' : '' ?> "
                        href="{:URL('index')}">全部</a>
                     <a type="button"
-                       class="btn btn-outline-primary <?php echo isset($param['extra']) && $param['extra'] == 'HIGHT' ? 'active' : '' ?>"
-                       href="{:URL('index',['extra'=>'HIGHT'])}">高危</a>
+                       class="btn btn-outline-primary <?php echo ($status == 'high') ? 'active' : '' ?>"
+                       href="{:URL('index',['status'=>'high'])}">高危</a>
                     <a type="button"
-                       class="btn btn-outline-primary <?php echo isset($param['extra']) && $param['extra'] == 'MEDIUM' ? 'active' : '' ?>"
-                       href="{:URL('index',['extra'=>'MEDIUM'])}">中危</a>
+                       class="btn btn-outline-primary <?php echo ($status == 'medium') ? 'active' : '' ?>"
+                       href="{:URL('index',['status'=>'medium'])}">中危</a>
                     <a type="button"
-                       class="btn btn-outline-primary <?php echo isset($param['extra']) && $param['extra'] == 'LOW' ? 'active' : '' ?>"
-                       href="{:URL('index',['extra'=>'LOW'])}">低危</a>
+                       class="btn btn-outline-primary <?php echo ($status == 'low') ? 'active' : '' ?>"
+                       href="{:URL('index',['status'=>'low'])}">低危</a>
                 </div>
+                
+                <!-- 漏洞类型筛选 -->
+                <div class="btn-group" role="group" aria-label="Vulnerability type filter" style="margin-left: 20px;">
+                    <select class="form-select" id="ruleTypeSelect">
+                        <option value="">所有漏洞类型</option>
+                        <?php foreach ($rule_types as $type) { ?>
+                            <option value="<?php echo $type['ruleId']; ?>" <?php echo isset($param['rule_id']) && $param['rule_id'] == $type['ruleId'] ? 'selected' : ''; ?>><?php echo $type['name'] ?: $type['ruleId']; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+
             </div>
         </div>
+        
+        <script>
+        function updateFilters() {
+            let ruleId = document.getElementById('ruleTypeSelect').value;
+            let problemSeverity = document.getElementById('problemSeveritySelect').value;
+            let ruleKind = document.getElementById('ruleKindSelect').value;
+            let securitySeverity = document.getElementById('securitySeveritySelect').value;
+            let status = '<?php echo isset($param['status']) ? $param['status'] : ''; ?>';
+            
+            let url = '{:URL('index')}';
+            let params = [];
+            
+            if (status !== 'all') {
+                params.push('status=' + status);
+            }
+            if (ruleId) {
+                params.push('rule_id=' + ruleId);
+            }
+            if (problemSeverity) {
+                params.push('problem_severity=' + problemSeverity);
+            }
+            if (ruleKind) {
+                params.push('rule_kind=' + ruleKind);
+            }
+            if (securitySeverity) {
+                params.push('security_severity=' + securitySeverity);
+            }
+            
+            if (params.length > 0) {
+                url += '?' + params.join('&');
+            }
+            
+            window.location.href = url;
+        }
+        
+        // Add event listeners to all select elements
+        document.getElementById('ruleTypeSelect').addEventListener('change', updateFilters);
+        document.getElementById('problemSeveritySelect').addEventListener('change', updateFilters);
+        document.getElementById('ruleKindSelect').addEventListener('change', updateFilters);
+        document.getElementById('securitySeveritySelect').addEventListener('change', updateFilters);
+        </script>
         <div class="row">
             <div class="col-12">
                 <div style="margin-top:20px;">
