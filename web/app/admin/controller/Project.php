@@ -21,8 +21,8 @@ class Project extends Common
 
         $userInfo = Session::get('userInfo');
         $where = [];
-        $totalNum = Db::name('project')->where(['user_id' => $userInfo['id']])->where($where)->count();
-        $list = Db::name('project')->where(['user_id' => $userInfo['id']])->where($where)->paginate([
+        $totalNum = Db::name('project')->where($where)->count();
+        $list = Db::name('project')->where($where)->paginate([
             'list_rows' => 10,
             'var_page' => 'page',
         ]);

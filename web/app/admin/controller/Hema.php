@@ -19,7 +19,7 @@ class Hema extends Common
         $where = empty($project_id) ? [] : ['project_id' => $project_id];
         $countList = HemaModel::getDetailCount($where);
  
-        $list = Db::name('hema')->where(['user_id' => $userInfo['id']])->where($where)->paginate([
+        $list = Db::name('hema')->where($where)->paginate([
             'list_rows' => 10,
             'var_page' => 'page',
             'query' => $request->param(),

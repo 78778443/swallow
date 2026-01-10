@@ -20,7 +20,7 @@ class CodeQl extends Common
 
         $where2 = [];
 
-        $list = Db::name('codeql')->where(['user_id' => $userInfo['id']])->where($where)->where($where2)->paginate([
+        $list = Db::name('codeql')->where($where)->where($where2)->paginate([
             'list_rows' => 10,
             'var_page' => 'page',
             'query' => $request->param(),
@@ -92,17 +92,11 @@ class CodeQl extends Common
         $code_addr_id = $request->param('code_addr_id');
 
 
-        if (!isset($filePath)) {
-            http_response_code(400);
-            echo json_encode(['error' => 'No file specified']);
-            exit;
-        }
 
 
         // Ensure the file path is safe
-        $realBase = Db::table('git_addr')->where(['id' => $code_addr_id])->value('code_path');
+        $realBase = Db::table('git_addr')->where(['project_id' => $code_addr_id])->value('code_path');
         $realUserPath = realpath($realBase ."/". $filePath);
-
 
         // Check for directory traversal attempts
         if ($realUserPath === false || strpos($realUserPath, $realBase) !== 0) {

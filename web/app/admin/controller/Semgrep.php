@@ -21,7 +21,7 @@ class Semgrep extends Common
         $where2 = [];
         if ($request->param('extra') !== null) $where2[] = ['extra', 'like', "%{$request->param('extra')}%"];
 
-        $list = Db::name('semgrep')->where(['user_id' => $userInfo['id']])->where($where)->where($where2)->paginate([
+        $list = Db::name('semgrep')->where($where)->where($where2)->paginate([
             'list_rows' => 10,
             'var_page' => 'page',
             'query' => $request->param(),
@@ -44,11 +44,11 @@ class Semgrep extends Common
         $userInfo = Session::get('userInfo');
         $id = $request->param('id');
         $where = ['id' => $id];
-        $info = Db::table('semgrep')->where(['user_id' => $userInfo['id']])->where($where)->find();
+        $info = Db::table('semgrep')->where($where)->find();
 
         $where = ['project_id' => $info['project_id']];
-        $preId = Db::table('semgrep')->where(['user_id' => $userInfo['id']])->where($where)->where('id', '<', $id)->value('id');
-        $nextId = Db::table('semgrep')->where(['user_id' => $userInfo['id']])->where($where)->where('id', '>', $id)->value('id');
+        $preId = Db::table('semgrep')->where($where)->where('id', '<', $id)->value('id');
+        $nextId = Db::table('semgrep')->where($where)->where('id', '>', $id)->value('id');
 
         return View::fetch('semgrep/detail', ['info' => $info, 'preId' => $preId, 'nextId' => $nextId]);
     }

@@ -15,12 +15,12 @@ class Home extends Common
 
         $userInfo = Session::get('userInfo');
         $bugList = Db::table('fortify')->field('Category,count(Category) as num')
-            ->where(['user_id' => $userInfo['id']])->group('Category')->select()->toArray();
+            ->group('Category')->select()->toArray();
         $bugList = array_column($bugList, 'num', 'Category');
         arsort($bugList);
 
         $semgrepList = Db::table('semgrep')->field('check_id,count(check_id) as num')
-            ->where(['user_id' => $userInfo['id']])->group('check_id')->select()->toArray();
+            ->group('check_id')->select()->toArray();
         foreach ($semgrepList as &$item) {
             $tempArr = explode(".", $item['check_id']);
             $item['check_id'] = array_pop($tempArr) . "." . array_pop($tempArr);
@@ -30,7 +30,7 @@ class Home extends Common
         arsort($semgrepList);
 
         $hemaList = Db::table('hema')->field('type,count(type) as num')
-            ->where(['user_id' => $userInfo['id']])->group('type')->select()->toArray();
+            ->group('type')->select()->toArray();
         $hemaList = array_column($hemaList, 'num', 'type');
         arsort($hemaList);
 
